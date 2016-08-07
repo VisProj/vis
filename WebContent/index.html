@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+    <![endif]-->
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet-src.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <style type="text/css">
+      html, body { margin: 0; padding: 0; height: 100%; }
+      #quake { min-height: 100%; 
+      }
+       #map {height: 80%;
+postion : relative;
+    clear: both;
+
+}
+       
+        body { font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
+        .ghbtns { position: relative; top: 4px; margin-left: 5px; }
+        a { color: #0077ff; }
+        
+        
+        
+       .action-list li{
+        font-size: 14px;
+
+}
+
+</style>
+ <!-- 
+ nav {
+margin-top: 14px;
+}
+ nav .nav-section{
+    margin-right: 3%;
+    margin-left: 3%;
+    min-width: 200px;
+    float: left; 
+    border-radius:
+}
+.nav-section{
+position: relative;
+}
+ nav .nav-section:first-child {
+      margin-left: 0; }
+     nav .nav-section:last-child {
+      margin-right: 0; }
+      
+      .nav-section,.MAP-list{
+    float: left;
+  text-align: center;
+  margin: 0 1.1%;
+
+} 
+.menu-hint{
+        background-color: #DEDEDE;
+  padding: 5px 5px;
+}
+
+.menu-hint p::after ,.active-links span::after{
+    content: " ";
+    display: inline-block;
+//for triangle border 12 give a square 12px * 12px  and top is black give black triangle  
+    border: 11px solid transparent;
+    border-top: 11px solid black;
+    float: right;
+}
+
+.menu .action-list,.active-links .active-list{
+        width: 100%;
+         position: absolute;
+  z-index: 2;
+  /*  visibility: hidden;*/
+   display:none;
+}
+
+.menu .action-list li,.active-links .active-list li{
+    width: 100%;
+        display: block;
+margin-left: -42px;
+background-color: white;
+
+margin-top:0;
+}
+.menu a,.active-list li a {
+    color: black;
+    width: 100%;
+}
+.menu .action-list li a,.active-links .active-list li a {
+
+      display: inline-block;
+     
+      border-bottom: 2px solid #A0A0A0;
+      opacity: 0.7;
+     }
+     /**************action list to remove margin li****/
+    
+.menu{
+    width: 100%;
+}
+
+
+     /*********************************************************************88
+     ************************ hover ********************************************
+     *************************************************************************/
+ .menu-hint:hover{
+    background-color:#C0C0C0 ;
+    opacity: 0.9;
+
+}
+.menu:hover .menu-hint:hover p::after {
+  transform: rotate(180deg) translateY(50%);
+  transition:0.7s all;
+   }
+     .menu:hover .action-list ,.active-links:hover .active-list{
+
+    display: block;
+}
+
+
+.menu .action-list li{
+    width: 100%;
+        display: block;
+margin-left: -42px;
+background-color: white;
+
+margin-top:0;
+}
+.menu a,.action-list li a {
+    color: black;
+    width: 100%;
+}
+.menu .action-list li a,.active-links .active-list li a {
+
+      display: inline-block;
+     
+      border-bottom: 2px solid #A0A0A0;
+      opacity: 0.7;
+     }
+ 
+ 
+ -->
+    
+
+<style type="text/css">
+
+ul
+{
+	 list-style: none;
+	 margin:0px;
+	 padding:0px;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#mapsList {
+       display: none;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin-top: 0px;
+    position: fixed;
+    text-align: left;
+    z-index: 1;
+
+}
+
+#mapsList  a {
+    color: black;
+    padding:12px;
+    text-decoration: none;
+    display: block;
+}
+
+#mapsList a:hover {background-color: #f1f1f1}
+
+.menu:hover #mapsList {
+    display: block;
+}
+
+.menu-hint
+{
+
+ 
+    display: inline-block;
+    background-color: #DEDEDE;
+    padding: 4px 0px 5px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    min-width: 145px;
+}
+.menu
+{
+	float:left;
+	margin-left: 39px;
+}
+
+
+</style>
+
+
+
+    
+  </head>
+  <body>
+          <nav>
+  
+              <div class="nav-section navDashboard">
+   <div class="menu" >
+  <div class="menu-hint">
+  		<p>Change map</p> 
+        <div class="arrow"></div>
+  </div>
+  
+  <ul id="mapsList" >                  
+         <li><a href="#" class="tablinks" onclick="tabEvent('Terrain')">Terrain map</a></li>
+         <li><a href="#" class="tablinks" onclick="tabEvent('toner')">toner map</a></li>
+         <li><a href="#" class="tablinks" onclick="tabEvent('OpenStreetMap')"> OpenStreetMap</a></li>
+         <li><a href="#" class="tablinks" onclick="tabEvent('watercolor')">   watercolor</a></li>
+         <li><a href="#" class="tablinks" onclick="tabEvent('outdoors')">   outdoors</a></li>
+         <li><a href="#" class="tablinks" onclick="tabEvent('dark')">   dark</a></li>
+         <li><a href="#" class="tablinks" onclick="tabEvent('light')">   light</a></li>
+         <li><a href="#" class="tablinks" onclick="tabEvent('satellite')">   satellite</a></li>
+		 <li><a href="#" class="tablinks" onclick="tabEvent('streets')">   streets</a></li>
+               
+ </ul>
+    </div>
+       <div class="menu" >
+       <a href="#" class="tablinks" onclick="update()">
+         <div class="menu-hint">
+  		<p>UPDATE the data</p> 
+        <div class="arrow"></div>
+  </div></a>
+    </div>
+    
+    
+                      </div>
+                    </nav>
+  <div id="map"></div>
+  
+  <script src="dist/leaflet-heat.js"></script>
+  
+       <script type="text/javascript" src="js/heat.js"></script>
+       
+    
+  </body>
+</html>
