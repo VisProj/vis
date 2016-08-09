@@ -4,7 +4,11 @@
  *
  * ${tags}
  */
-
+//the world map bounds N=NORTH(the northest point) S=SOUTH E=East W=WEST 
+var limits={N:87,S:-87,E:227,W:-227};
+var lat_div=8;//to how many latitude region to divide the map
+var lan_div=12;//to how many longitude region to divide the map
+var RegionArr;
 var data;
 var DataArray;
 var map;
@@ -13,6 +17,13 @@ var heat;
 var size;
 var MAX_MAG;
 var max_normto=1900;// a define var that contine the the value of the strongest earthquake
+function BuildRegionArr(){
+	DataArray=new  Array(lat_div*lan_div);
+}
+function AddToRegionArr(){
+	
+}
+
 function calc_magS1(mag){
 	if(mag > MAX_MAG)
 		MAX_MAG=mag;
@@ -107,9 +118,15 @@ console.log(DataArray);
 function draw()
 {
 	
-	 map = L.map('map').setView([-37.87, 175.475], 12);
-
-	 tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+	map = L.map('map').setView([0, 0], 2);
+	/* map = new L.Map('map', {
+		  center: bounds.getCenter(),
+		  zoom: 5,
+		  layers: [osm],
+		  maxBounds: bounds,
+		  maxBoundsViscosity: 1.0
+		});
+	 */tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
 	 DataArray = DataArray.map(function (p) { 
 		 return [p[0], p[1],p[3]]; });
@@ -121,7 +138,18 @@ function init(){
 	MAX_MAG=0;
 	Data("jasonData");
 	draw();
-alert(MAX_MAG);
+	document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+	
+	var popup = L.popup();
+
+	function onMapClick(e) {
+	    popup
+	        .setLatLng(e.latlng)
+	        .setContent("You clicked the map at " + e.latlng.toString())
+	        .openOn(map);
+	}
+
+	map.on('click', onMapClick);
 
 }
 function tabEvent(tabid) {
