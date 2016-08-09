@@ -6,8 +6,8 @@
  */
 //the world map bounds N=NORTH(the northest point) S=SOUTH E=East W=WEST 
 var limits={N:87,S:-87,E:227,W:-227};
-var lat_div=8;//to how many latitude region to divide the map
-var lan_div=12;//to how many longitude region to divide the map
+var lat_div=12;//to how many latitude region to divide the map (min is 3)
+var lon_div=8;//to how many longitude region to divide the map (min is 3)
 var RegionArr;
 var data;
 var DataArray;
@@ -18,7 +18,32 @@ var size;
 var MAX_MAG;
 var max_normto=1900;// a define var that contine the the value of the strongest earthquake
 function BuildRegionArr(){
-	DataArray=new  Array(lat_div*lan_div);
+	var lat_unit=(limits.E-limits.W)/lat_div;
+	var lon_unit=(limits.N-limits.S)/lon_div;
+	RegionArr=new  Array(lat_div*lon_div);
+	for(var i=0;i<lat_div;i++){
+		for(var j=0;j<lon_div;j++){
+			RegionArr[i*lon_div+j]= new  Array();
+			if((j<lon_div-1)&&(i<lat_div-1))
+			//	RegionArr[i*lon_div+j].push("1");
+				
+			RegionArr[i*lon_div+j].push({N:(limits.S+(j+1)*lon_unit),S:(limits.S+j*lon_unit),E:limits.W+(i+1)*lat_unit,W:limits.W+i*lat_unit});
+			else {
+				if(i<lat_div-1)//i<lat j=lon-1
+					RegionArr[i*lon_div+j].push({N:limits.N,S:(limits.S+j*lon_unit),E:limits.W+(i+1)*lat_unit,W:limits.W+i*lat_unit});
+				else{
+				if(j<lon_div-1)
+					RegionArr[i*lon_div+j].push({N:(limits.S+(j+1)*lon_unit),S:(limits.S+j*lon_unit),E:limits.E,W:limits.W+i*lat_unit});
+
+				else
+					RegionArr[i*lon_div+j].push({N:limits.N,S: limits.S+(j*lon_unit),E:limits.E,W:limits.W+i*lat_unit});
+				
+				}
+					
+			}
+		}
+	}
+	console.log(RegionArr);
 }
 function AddToRegionArr(){
 	
@@ -75,13 +100,13 @@ localStorage.setItem(key, JSON.stringify(data));
 
 
 } else {
-console.log(xhr.responseText);
-console.log(xhr.readyState);
-console.log(xhr.status);
+//console.log(xhr.responseText);
+//console.log(xhr.readyState);
+//console.log(xhr.status);
 
 }
 }
-console.log(data);
+//console.log(data);
 
 size=data.length();
 }
@@ -93,7 +118,7 @@ size=data.length();
  *quake.properties=[latitude,longitude,depth,magnitude,phases]
  * 
 */
-console.log(data);
+//console.log(data);
 //alert(JSON.stringify(data.features));
 //alert(data.features[0].properties.status);
 DataArray=new Array(data.features.length)
@@ -110,7 +135,7 @@ for(var i=0;i<DataArray.length;i++){
 }
 calc_MagNorm()
 //DataArray.push( JSON.parse(data));
-console.log(DataArray);
+//console.log(DataArray);
 
 }
 
@@ -150,7 +175,7 @@ function init(){
 	}
 
 	map.on('click', onMapClick);
-
+	BuildRegionArr();
 }
 function tabEvent(tabid) {
    
