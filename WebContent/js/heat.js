@@ -6,6 +6,9 @@
  */
 //the world map bounds N=NORTH(the northest point) S=SOUTH E=East W=WEST 
 var limits={N:87,S:-87,E:227,W:-227};
+var lat_unit;
+var lon_unit;
+
 var lat_div=12;//to how many latitude region to divide the map (min is 3)
 var lon_div=8;//to how many longitude region to divide the map (min is 3)
 var RegionArr;
@@ -17,16 +20,24 @@ var heat;
 var size;
 var MAX_MAG;
 var max_normto=1900;// a define var that contine the the value of the strongest earthquake
+function  onRegionArrIndex(point){
+	console.log("lon "+point.lon+ " lat "+point.lat);
+
+	//get point cord and calc where it pushed or should be pushed on the array
+	var iS=Math.floor((point.lon-limits.S)/lon_unit);
+//	console.log("point.lon="+point.lon+"limits.S="+limits.S+"is=" + iS);
+	var jS=Math.floor((point.lat-limits.W)/lat_unit);
+	return(iS+jS*lon_div);
+//	return();
+}
 function BuildRegionArr(){
-	var lat_unit=(limits.E-limits.W)/lat_div;
-	var lon_unit=(limits.N-limits.S)/lon_div;
+	lat_unit=(limits.E-limits.W)/lat_div;
+	lon_unit=(limits.N-limits.S)/lon_div;
 	RegionArr=new  Array(lat_div*lon_div);
 	for(var i=0;i<lat_div;i++){
 		for(var j=0;j<lon_div;j++){
 			RegionArr[i*lon_div+j]= new  Array();
-			if((j<lon_div-1)&&(i<lat_div-1))
-			//	RegionArr[i*lon_div+j].push("1");
-				
+			if((j<lon_div-1)&&(i<lat_div-1))				
 			RegionArr[i*lon_div+j].push({N:(limits.S+(j+1)*lon_unit),S:(limits.S+j*lon_unit),E:limits.W+(i+1)*lat_unit,W:limits.W+i*lat_unit});
 			else {
 				if(i<lat_div-1)//i<lat j=lon-1
@@ -34,10 +45,8 @@ function BuildRegionArr(){
 				else{
 				if(j<lon_div-1)
 					RegionArr[i*lon_div+j].push({N:(limits.S+(j+1)*lon_unit),S:(limits.S+j*lon_unit),E:limits.E,W:limits.W+i*lat_unit});
-
 				else
 					RegionArr[i*lon_div+j].push({N:limits.N,S: limits.S+(j*lon_unit),E:limits.E,W:limits.W+i*lat_unit});
-				
 				}
 					
 			}
@@ -128,6 +137,15 @@ for(var i=0;i<DataArray.length;i++){
 	DataArray[i][1]=data.features[i].geometry.coordinates[0];//.longitude;
 	DataArray[i][2]=data.features[i].geometry.coordinates[3];//.depth;
 	DataArray[i][3]=calc_magS1(data.features[i].properties.mag);
+
+var	temp=onRegionArrIndex({lat:DataArray[i][1],lon:DataArray[i][0]});// in our functions we swap bettwen longitude and latitude sow we need to
+//swap bettwen longitude and latitude 
+//in our functions 
+//longitude=  N<-->S
+//latitude= E<-->W
+	if(parseInt(temp) > 0)
+	RegionArr[temp].push({lat:DataArray[i][0],lon:DataArray[i][1],depth:DataArray[i][2],mag:DataArray[i][3]});
+
 	DataArray[i][4]=data.features[i].properties.phases;
 
 
@@ -161,6 +179,7 @@ function draw()
 function init(){
 	lastclick=0;
 	MAX_MAG=0;
+	BuildRegionArr();
 	Data("jasonData");
 	draw();
 	document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
@@ -175,7 +194,6 @@ function init(){
 	}
 
 	map.on('click', onMapClick);
-	BuildRegionArr();
 }
 function tabEvent(tabid) {
    
