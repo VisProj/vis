@@ -1,7 +1,8 @@
 
 /**
- * @author ${Ebraheem_kashkoush} (do not distribute) 
+ * @author ${Ebraheem_kashkoush} 
  *
+ *(do not distribute) 
  * ${tags}
  */
 //the world map bounds N=NORTH(the northest point) S=SOUTH E=East W=WEST 
