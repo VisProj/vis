@@ -1,6 +1,6 @@
 
 /**
- * @author ${Ebraheem_kashkoush}
+ * @author ${Ebraheem_kashkoush} (do not distribute) 
  *
  * ${tags}
  */
