@@ -9,9 +9,10 @@
 var limits={N:87,S:-87,E:227,W:-227};
 var lat_unit;
 var lon_unit;
-
+var currentmap;
 var lat_div=8;//to how many latitude region to divide the map (min is 3)
 var lon_div=12;//to how many longitude region to divide the map (min is 3)
+var selectedArr;// array hold selected Rectangles
 var RegionArr;
 var data;
 var DataArray;
@@ -22,9 +23,24 @@ var size;
 var MAX_MAG;
 var max_normto=1900;// a define var that contine the the value of the strongest earthquake
 var on_select=0;
+
+
+
 function selectorChange(Limits){
-	
+	map.removeLayer(heat);
+	//Rounding up containing Rectangle (to biger  Rectangle containing full Rectangles)
+	NewCord={N:-1,S:-1,W:-1,E:-1}
+	NewCord.S=limits.S+(math.floor((Limits.S-limits.S)/lat_unit)*lat_unit);
+	NewCord.W=limits.W+(math.floor((Limits.W-limits.W)/lon_unit)*lon_unit);
+	NewCord.N=limits.S+(Math.ceil((Limits.N-limits.S)/lat_unit)*lat_unit);
+	NewCord.E=limits.W+(Math.ceil((Limits.E-limits.W)/lon_unit)*lon_unit);
+
+
+
+
 }
+
+
 function turnselectorON(){
 	if(on_select<1){
 	var areaSelect = L.areaSelect({width:200, height:300});
@@ -193,7 +209,7 @@ function draw()
 		  maxBoundsViscosity: 1.0
 		});
 	 */tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
-
+	 currentmap=tiles;
 	 DataArray = DataArray.map(function (p) { 
 		 return [p[0], p[1],p[3]]; });
 
@@ -228,55 +244,62 @@ function tabEvent(tabid) {
     switch(tabid){
     case 'Terrain':
     	// map = L.map('map').setView([-37.87, 175.475], 12);
-    	    
-    	 L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
+    	map.removeLayer(currentmap);
+    	currentmap= L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
     	    maxZoom: 17
     	  }).addTo(map);
     	 break;
     case 'toner':
-
-    	 L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {
+    	map.removeLayer(currentmap);
+    	currentmap=L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {
     		    maxZoom: 17
     		}).addTo(map);
     	 break;
     case 'OpenStreetMap' :
-        tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    	map.removeLayer(currentmap);
+    	currentmap= L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     	}).addTo(map);
         break;
     case 'watercolor':
-    	 L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png', {
+    	map.removeLayer(currentmap);
+    	currentmap= L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png', {
  		    maxZoom: 17
  		}).addTo(map);
     	break;
     	
     case 'outdoors' :
     	
-    	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+    	map.removeLayer(currentmap);
+    	currentmap=	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
 			maxZoom: 18,
 			id: 'mapbox.outdoors'
 		}).addTo(map);
     	break;
 
     case 'dark' :
-    	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+    	map.removeLayer(currentmap);
+    	currentmap=L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
 			maxZoom: 18,
 			id: 'mapbox.dark'
 		}).addTo(map);
     	break;    
     case 'light' :
-    	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+    	map.removeLayer(currentmap);
+    	currentmap=L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
 			maxZoom: 18,
 			id: 'mapbox.light'
 		}).addTo(map);
     	break;   
     case 'satellite' :
-    	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+    	map.removeLayer(currentmap);
+    	currentmap=L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
 			maxZoom: 18,
 			id: 'mapbox.satellite'
 		}).addTo(map);
     	break; 
     case 'streets' :
-    	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+    	map.removeLayer(currentmap);
+    	currentmap= L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
 			maxZoom: 18,
 			id: 'mapbox.streets'
 		}).addTo(map);
