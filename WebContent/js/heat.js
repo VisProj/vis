@@ -13,6 +13,9 @@ var currentmap;
 var lat_div=8;//to how many latitude region to divide the map (min is 3)
 var lon_div=12;//to how many longitude region to divide the map (min is 3)
 var selectedArr;// array hold selected Rectangles
+var PrevSelectedArr;//array hold previous selectedArr for little Dynamic Programming its not really Dynamic Programming
+var newSelected;//array contine the new selected rec's wich it is selectedArr-PrevSelectedArr if updateSelect=1
+var updateSelect=0;// bool var if we only need to update the selected his value will be 1 else 0
 var RegionArr;
 var data;
 var DataArray;
@@ -27,14 +30,41 @@ var on_select=0;
 
 
 function selectorChange(Limits){
+	var iTO=Math.ceil((Limits.N-limits.S)/lat_unit);
+	var jTO=Math.ceil((Limits.E-limits.W)/lon_unit);
+	var iFROM=Math.floor((Limits.S-limits.S)/lat_unit);
+	var jFROM=Math.floor((Limits.W-limits.W)/lon_unit);
 	map.removeLayer(heat);
 	//Rounding up containing Rectangle (to biger  Rectangle containing full Rectangles)
 	NewCord={N:-1,S:-1,W:-1,E:-1}
-	NewCord.S=limits.S+(math.floor((Limits.S-limits.S)/lat_unit)*lat_unit);
-	NewCord.W=limits.W+(math.floor((Limits.W-limits.W)/lon_unit)*lon_unit);
-	NewCord.N=limits.S+(Math.ceil((Limits.N-limits.S)/lat_unit)*lat_unit);
-	NewCord.E=limits.W+(Math.ceil((Limits.E-limits.W)/lon_unit)*lon_unit);
+	NewCord.S=limits.S+(iFROM*lat_unit);
+	NewCord.W=limits.W+(jFROM*lon_unit);
+	NewCord.N=limits.S+(iTO*lat_unit);
+	NewCord.E=limits.W+(jTO*lon_unit);
+	if(NewCord.N>limits.N)
+		NewCord.N=limits.N;
+	if(NewCord.E>limits.E)
+		NewCord.E=limits.E;
+	
+	//calc num of Rectangle of every  direction lat and lon
+	var latRecs=Math.ceil((NewCord.N-NewCord.S)/lat_unit);
+	var lonRecs=Math.ceil((NewCord.E-NewCord.W)/lon_unit);
+	
+	//initialization or update of selectedArr array
+	PrevSelectedArr=[];
+	PrevSelectedArr.length=0;
+	PrevSelectedArr=selectedArr;
+	
+	selectedArr=[];
+	selectedArr.length=0;
+	for(var i=iFROM;i< iTO;i++)//need a check tomorrow
+		for(var j=jFROM;j<jTO;j++)
+			selectedArr.push(i*lon_div+j);
+	
+	
+	console.log(selectedArr);
 
+	
 
 
 
@@ -92,7 +122,7 @@ function BuildRegionArr(){
 			}
 		}
 	}
-	console.log(RegionArr);
+//	console.log(RegionArr);
 }
 function AddToRegionArr(){
 	
