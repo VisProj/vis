@@ -21,6 +21,27 @@ var heat;
 var size;
 var MAX_MAG;
 var max_normto=1900;// a define var that contine the the value of the strongest earthquake
+var on_select=0;
+function selectorChange(Limits){
+	
+}
+function turnselectorON(){
+	if(on_select<1){
+	var areaSelect = L.areaSelect({width:200, height:300});
+	
+	   areaSelect.on("change", function() {
+           var bounds = this.getBounds();
+           selectorChange({S:bounds.getSouthWest().lat,W:bounds.getSouthWest().lng,N:bounds.getNorthEast().lat,E:bounds.getNorthEast().lng})
+       
+       });
+	
+	areaSelect.addTo(map);
+	on_select=2;
+	}
+}
+
+
+
 function  onRegionArrIndex(point){
 	//get point cord and calc where it pushed or should be pushed on the array
 	var iS=Math.floor((point.lat-limits.S)/lat_unit);
@@ -196,6 +217,11 @@ function init(){
 	}
 
 	map.on('click', onMapClick);
+	
+	
+	
+	
+	
 }
 function tabEvent(tabid) {
    

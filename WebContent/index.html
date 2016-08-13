@@ -8,6 +8,7 @@
     <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet-src.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+      <link rel="stylesheet" href="./css/leaflet-areaselect.css" />
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <style type="text/css">
       html, body { margin: 0; padding: 0; height: 100%; }
@@ -220,7 +221,7 @@ ul
   </div>
   
   <ul id="mapsList" >                  
-         <li><a href="#" class="tablinks" onclick="tabEvent('Terrain')">Select area</a></li>
+         <li><a href="#" class="tablinks" onclick="turnselectorON()">Select area</a></li>
          
                
  </ul>
@@ -265,10 +266,15 @@ ul
   <td id="magtd"></td>
   </tr>
   </table>
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+    <script src="./js/leaflet-areaselect.js"></script>
+  
   
   <script src="dist/leaflet-heat.js"></script>
   
        <script type="text/javascript" src="js/heat.js"></script>
+       
        
     
   </body>
