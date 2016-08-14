@@ -34,6 +34,16 @@ function selectorChange(Limits){
 	var jTO=Math.ceil((Limits.E-limits.W)/lon_unit);
 	var iFROM=Math.floor((Limits.S-limits.S)/lat_unit);
 	var jFROM=Math.floor((Limits.W-limits.W)/lon_unit);
+	if(iFROM<0)//Limits.S<limits.S
+		iFROM=0;
+	if(jFROM<0)
+		jFROM=0;
+	if(iTO>(lat_div))
+		iTO=lat_div;
+	if(jTO>(lon_div))
+		jTO=lon_div;
+	
+		
 	map.removeLayer(heat);
 	//Rounding up containing Rectangle (to biger  Rectangle containing full Rectangles)
 	NewCord={N:-1,S:-1,W:-1,E:-1}
@@ -49,7 +59,6 @@ function selectorChange(Limits){
 	//calc num of Rectangle of every  direction lat and lon
 	var latRecs=Math.ceil((NewCord.N-NewCord.S)/lat_unit);
 	var lonRecs=Math.ceil((NewCord.E-NewCord.W)/lon_unit);
-	
 	//initialization or update of selectedArr array
 	PrevSelectedArr=[];
 	PrevSelectedArr.length=0;
@@ -60,9 +69,33 @@ function selectorChange(Limits){
 	for(var i=iFROM;i< iTO;i++)//need a check tomorrow
 		for(var j=jFROM;j<jTO;j++)
 			selectedArr.push(i*lon_div+j);
+	//re initialization of DataArray
+	DataArray=[];
+	DataArray.length=0;
+	var counter=0;
+	for(var i=0;i<selectedArr.length;i++){
+
+		if(RegionArr[selectedArr[i]].length>1){
+			for(var j=1;j<RegionArr[selectedArr[i]].length;j++){
+				var temp=[-1,-1,-1,-1]
+				DataArray.push(temp);
+				DataArray[counter][0]=RegionArr[selectedArr[i]][j].lat;//.latitude;
+			//	console.log(DataArray );
+				DataArray[counter][1]=RegionArr[selectedArr[i]][j].lon;//.longitude;
+			DataArray[counter][2]=RegionArr[selectedArr[i]][j].depth;//.depth;
+				DataArray[counter][3]=RegionArr[selectedArr[i]][j].mag;
+				counter++;
+			}
+				
+		}
+		draw();
+		
+		
+		
+	}
 	
-	
-	console.log(selectedArr);
+	console.log(DataArray);
+
 
 	
 
@@ -122,7 +155,7 @@ function BuildRegionArr(){
 			}
 		}
 	}
-//	console.log(RegionArr);
+	console.log(RegionArr);
 }
 function AddToRegionArr(){
 	
@@ -226,10 +259,7 @@ calc_MagNorm()
 
 }
 
-
-function draw()
-{
-	
+function initMap(){
 	map = L.map('map').setView([0, 0], 2);
 	/* map = new L.Map('map', {
 		  center: bounds.getCenter(),
@@ -240,6 +270,11 @@ function draw()
 		});
 	 */tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 	 currentmap=tiles;
+}
+function draw()
+{
+	
+	
 	 DataArray = DataArray.map(function (p) { 
 		 return [p[0], p[1],p[3]]; });
 
@@ -250,6 +285,7 @@ function init(){
 	MAX_MAG=0;
 	BuildRegionArr();
 	Data("jasonData");
+	initMap();
 	draw();
 	document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
 	
