@@ -22,6 +22,7 @@ var DataArray;
 var map;
 var tiles;
 var heat;
+var areaSelect;
 var size;
 var MAX_MAG;
 var max_normto=1900;// a define var that contine the the value of the strongest earthquake
@@ -30,6 +31,7 @@ var on_select=0;
 
 
 function selectorChange(Limits){
+
 	var iTO=Math.ceil((Limits.N-limits.S)/lat_unit);
 	var jTO=Math.ceil((Limits.E-limits.W)/lon_unit);
 	var iFROM=Math.floor((Limits.S-limits.S)/lat_unit);
@@ -44,7 +46,7 @@ function selectorChange(Limits){
 		jTO=lon_div;
 	
 		
-	map.removeLayer(heat);
+	//map.removeLayer(heat);
 	//Rounding up containing Rectangle (to biger  Rectangle containing full Rectangles)
 	NewCord={N:-1,S:-1,W:-1,E:-1}
 	NewCord.S=limits.S+(iFROM*lat_unit);
@@ -72,29 +74,38 @@ function selectorChange(Limits){
 	//re initialization of DataArray
 	DataArray=[];
 	DataArray.length=0;
+	MAX_MAG=0;
+
 	var counter=0;
+	var tempLat,tempLon;
 	for(var i=0;i<selectedArr.length;i++){
 
 		if(RegionArr[selectedArr[i]].length>1){
 			for(var j=1;j<RegionArr[selectedArr[i]].length;j++){
-				var temp=[-1,-1,-1,-1]
-				DataArray.push(temp);
-				DataArray[counter][0]=RegionArr[selectedArr[i]][j].lat;//.latitude;
-			//	console.log(DataArray );
-				DataArray[counter][1]=RegionArr[selectedArr[i]][j].lon;//.longitude;
+				
+				tempLat=RegionArr[selectedArr[i]][j].lat;//.latitude;
+				tempLon=RegionArr[selectedArr[i]][j].lon;//.longitude;
+				//hint for improve we need only this check on the border so to get little improve you cans split it to to for's
+				if((tempLat>=Limits.S)&&(tempLat<=Limits.N)&&(tempLon>=Limits.W)&&(tempLon<=Limits.E)){
+					DataArray[counter]=new Array(4);
+				DataArray[counter][0]=tempLat;
+				DataArray[counter][1]=tempLon;
 			DataArray[counter][2]=RegionArr[selectedArr[i]][j].depth;//.depth;
-				DataArray[counter][3]=RegionArr[selectedArr[i]][j].mag;
-				counter++;
+				DataArray[counter][3]=calc_magS1(RegionArr[selectedArr[i]][j].mag);
+
+				counter=counter+1;
+				}
 			}
 				
 		}
-		draw();
 		
+		if(!updateSelect)
+	    	map.removeLayer(heat);
 		
 		
 	}
 	
-	console.log(DataArray);
+	//console.log(DataArray);
 
 
 	
@@ -106,14 +117,19 @@ function selectorChange(Limits){
 
 function turnselectorON(){
 	if(on_select<1){
-	var areaSelect = L.areaSelect({width:200, height:300});
+	 areaSelect = L.areaSelect({width:200, height:300});
 	
 	   areaSelect.on("change", function() {
            var bounds = this.getBounds();
            selectorChange({S:bounds.getSouthWest().lat,W:bounds.getSouthWest().lng,N:bounds.getNorthEast().lat,E:bounds.getNorthEast().lng})
        
+           calc_MagNorm();
+
+   		draw();
+   		
+   		console.log("MAX_MAG ="+MAX_MAG);
        });
-	
+	  
 	areaSelect.addTo(map);
 	on_select=2;
 	}
@@ -233,7 +249,7 @@ size=data.length();
 //console.log(data);
 //alert(JSON.stringify(data.features));
 //alert(data.features[0].properties.status);
-DataArray=new Array(data.features.length)
+DataArray=new Array(data.features.length);
 for(var i=0;i<DataArray.length;i++){
 	DataArray[i]=new Array(5);
 	DataArray[i][0]=data.features[i].geometry.coordinates[1];//.latitude;
@@ -246,7 +262,7 @@ var	temp=onRegionArrIndex({lat:DataArray[i][0],lon:DataArray[i][1]});// its now 
 //latitude=  N<-->S
 //longitude= E<-->W
 	if(parseInt(temp) > 0)
-RegionArr[temp].push({lat:DataArray[i][0],lon:DataArray[i][1],depth:DataArray[i][2],mag:DataArray[i][3]});
+RegionArr[temp].push({lat:DataArray[i][0],lon:DataArray[i][1],depth:DataArray[i][2],mag:data.features[i].properties.mag});
 
 	DataArray[i][4]=data.features[i].properties.phases;
 
