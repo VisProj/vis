@@ -12,19 +12,22 @@ var lon_unit;
 var currentmap;
 var lat_div=8;//to how many latitude region to divide the map (min is 3)
 var lon_div=12;//to how many longitude region to divide the map (min is 3)
-var selectedArr;// array hold selected Rectangles
-var PrevSelectedArr;//array hold previous selectedArr for little Dynamic Programming its not really Dynamic Programming
-var newSelected;//array contine the new selected rec's wich it is selectedArr-PrevSelectedArr if updateSelect=1
+var selectedArr=[];// array hold selected Rectangles
+var PrevSelectedArr ;//array hold previous selectedArr for little Dynamic Programming its not really Dynamic Programming
+var newSelected=[];//array contine the new selected rec's wich it is selectedArr-PrevSelectedArr if updateSelect=1
 var updateSelect=0;// bool var if we only need to update the selected his value will be 1 else 0
 var RegionArr;
 var data;
 var DataArray;
+var DataArray2;
 var map;
+var ONchangeOFF=1;
 var tiles;
 var heat;
 var areaSelect;
 var size;
 var MAX_MAG;
+var AllMaxMag;
 var max_normto=1900;// a define var that contine the the value of the strongest earthquake
 var on_select=0;
 
@@ -64,6 +67,7 @@ function selectorChange(Limits){
 	//initialization or update of selectedArr array
 	PrevSelectedArr=[];
 	PrevSelectedArr.length=0;
+	if(selectedArr.length>0)
 	PrevSelectedArr=selectedArr;
 	
 	selectedArr=[];
@@ -71,7 +75,38 @@ function selectorChange(Limits){
 	for(var i=iFROM;i< iTO;i++)//need a check tomorrow
 		for(var j=jFROM;j<jTO;j++)
 			selectedArr.push(i*lon_div+j);
+	
+	//check if to update or calc the all
+	/*not completed so it have many errors i see that for now we not really need it becouse it calc the heat very fast
+	console.log("PrevSelectedArr =" +PrevSelectedArr)
+	console.log("selectedArr =" +selectedArr)
+	var ko=0;
+	updateSelect=1;
+	var coco=0;
+	for(var ki=0;ki<PrevSelectedArr.length;ki++){
+		while((PrevSelectedArr[ki]!=selectedArr[ko])&&(PrevSelectedArr[ki]>selectedArr[ko])&&(ko<selectedArr.length)){
+ 			newSelected.push(selectedArr[ko]);
+			ko++;
+		}
+		if(ko>(selectedArr.length-1)){
+			updateSelect=0;
+		}
+		coco=1;
+	}
+	if(coco){
+	while(ko<selectedArr.length){
+		newSelected.push(selectedArr[ko]);
+		ko++;
+	}
+	coco=0;
+	}*/
 	//re initialization of DataArray
+	//console.log("newSelected =" +newSelected)
+
+	
+	
+
+	if(!updateSelect){
 	DataArray=[];
 	DataArray.length=0;
 	MAX_MAG=0;
@@ -99,12 +134,19 @@ function selectorChange(Limits){
 				
 		}
 		
-		if(!updateSelect)
-	    	map.removeLayer(heat);
-		
-		
+
+
 	}
 	
+	
+		
+	}
+	else{
+		console.log("not finished yet")
+	}
+	
+	map.removeLayer(heat);
+
 	//console.log(DataArray);
 
 
@@ -116,10 +158,14 @@ function selectorChange(Limits){
 
 
 function turnselectorON(){
+	document.getElementById("OFF").style.display='block';
+	document.getElementById("ON").style.display='none';
+	ONchangeOFF=1;
 	if(on_select<1){
 	 areaSelect = L.areaSelect({width:200, height:300});
 	
 	   areaSelect.on("change", function() {
+		   if(ONchangeOFF){
            var bounds = this.getBounds();
            selectorChange({S:bounds.getSouthWest().lat,W:bounds.getSouthWest().lng,N:bounds.getNorthEast().lat,E:bounds.getNorthEast().lng})
        
@@ -128,6 +174,8 @@ function turnselectorON(){
    		draw();
    		
    		console.log("MAX_MAG ="+MAX_MAG);
+   		document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+		   }
        });
 	  
 	areaSelect.addTo(map);
@@ -296,13 +344,40 @@ function draw()
 
 	 heat = L.heatLayer(DataArray).addTo(map);
 }
+function turnselectorOff(){
+	document.getElementById("OFF").style.display='none';
+	document.getElementById("ON").style.display='block';
+	ONchangeOFF=0;
+	map.removeLayer(heat);
+	map.removeLayer(areaSelect);
+
+ 	areaSelect.remove();
+
+	draw_allMap();
+	on_select=0;
+		document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+
+}
+function draw_allMap(){
+	MAX_MAG=AllMaxMag;
+	DataArray=[];
+	DataArray.length=0;
+	DataArray=DataArray2;
+	
+
+	draw();
+
+
+}
 function init(){
 	lastclick=0;
 	MAX_MAG=0;
 	BuildRegionArr();
 	Data("jasonData");
+	DataArray2=DataArray;
 	initMap();
 	draw();
+	AllMaxMag=MAX_MAG;
 	document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
 	
 	var popup = L.popup();

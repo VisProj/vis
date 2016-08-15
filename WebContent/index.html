@@ -8,6 +8,8 @@
     <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet-src.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link rel="stylesheet" href="./leaflet/leaflet.css" />
+  
       <link rel="stylesheet" href="./css/leaflet-areaselect.css" />
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <style type="text/css">
@@ -28,9 +30,13 @@ postion : relative;
         
        .action-list li{
         font-size: 14px;
+        
 
 }
 
+ #OFF{
+display:none ;
+}
 </style>
  <!-- 
  nav {
@@ -176,7 +182,7 @@ ul
     color: black;
     padding:12px;
     text-decoration: none;
-    display: block;
+//    display: block;
 }
 
 #mapsList a:hover {background-color: #f1f1f1}
@@ -221,7 +227,9 @@ ul
   </div>
   
   <ul id="mapsList" >                  
-         <li><a href="#" class="tablinks" onclick="turnselectorON()">Select area</a></li>
+         <li><a href="#" class="tablinks" id="ON" onclick="turnselectorON()">Select area</a></li>
+         <li><a href="#" class="tablinks" id="OFF" onclick="turnselectorOff()">UnSelect area</a></li>
+         
          
                
  </ul>
