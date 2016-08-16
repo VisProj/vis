@@ -369,7 +369,19 @@ function draw_allMap(){
 
 
 }
+function style_init(){
+	var x= document.getElementsByClassName("tablinks");
+	 var i;
+	 for (i = 0; i < x.length; i++) {
+	     x[i].style.display='block' ;
+	 }
+	 x= document.getElementsByClassName("FRSTNON");
+	 for (i = 0; i < x.length; i++) {
+	     x[i].style.display='none' ;
+	 }
+}
 function init(){
+	style_init();
 	lastclick=0;
 	MAX_MAG=0;
 	BuildRegionArr();
