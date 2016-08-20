@@ -31,6 +31,33 @@ var AllMaxMag;
 var max_normto=1900;// a define var that contine the the value of the strongest earthquake
 var on_select=0;
 
+/*#####################################################################################################################
+ * ################################### @author ${Ebraheem_kashkoush} 								###################
+ * ###################################Circles test 	    ###################
+ * ################################### tags: #Circles												###################
+ * ####################################################################################################################
+ * 
+ */
+
+//getPanes() : Returns an object with different map panes (to render overlays in)
+//overlayPane() : Pane for overlays like polylines and polygons.
+function CirclesON(){
+var svg = d3.select(
+		map.getPanes()
+		.overlayPane)
+		.append("svg"),
+		//The SVG <g> element is used to group SVG shapes together. Once grouped you can transform the whole 
+		//group of shapes as if it was a single shape. This is an advantage compared to a nested <svg> element
+		//which cannot be the target of transformation by itself
+		
+		//leaflet-zoom-hide : class to the DOM elements you create for the layer so that it hides during zoom animation. Implementing zoom animation for custom layers is a complex topic and will be documented separately in future, but meanwhile you can take a look at how it's done for Leaflet layers (e.g. ImageOverlay) in the source.
+	    g = svg.append("g").attr("class", "leaflet-zoom-hide"),
+ 	    color = d3.scale.log() //scale is logrtim and nor lienar 
+	        .domain([5, 8, 17 ,30])// domain is the depth
+	        .range(["#d7191e", "#ffffbc", "#2c7bb9"])//color range
+	        .interpolate(d3.interpolateHcl);//interpolate it wiht HCL color not LAB
+}
+
 
 
 /*#####################################################################################################################

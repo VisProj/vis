@@ -4,7 +4,7 @@
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
     <![endif]-->
-
+<script src="./js/d3.min.js" charset="utf-8"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet-src.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
@@ -256,6 +256,28 @@ ul
                
  </ul>
     </div>
+       
+       
+       
+                        <div class="menu" >
+  <div class="menu-hint">
+  		<p>visualization</p> 
+        <div class="arrow"></div>
+  </div>
+  
+  <ul id="mapsList" >                  
+         <li><a href="#" class="tablinks" id="ON" onclick="HeatMapON()">Heat Map</a></li>
+         <li><a href="#" class="tablinks  " id="OFF" onclick="CirclesON()">circles</a></li>
+         
+         
+               
+ </ul>
+    </div>
+       
+       
+       
+       
+       
        <div class="menu" >
        <a href="#" class="tablinks" onclick="update()">
          <div class="menu-hint">
