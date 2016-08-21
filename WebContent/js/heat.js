@@ -12,6 +12,7 @@ var lon_unit;
 var bounds ;
 var container;
 var currentmap;
+var heatVis=1;
 var circVis=0;//if Circles visualization used
 var lat_div=8;//to how many latitude region to divide the map (min is 3)
 var lon_div=12;//to how many longitude region to divide the map (min is 3)
@@ -24,7 +25,7 @@ var data;
 var DataArray;
 var DataArray2;
 var map;
-var ONchangeOFF=1;
+var ONchangeOFF=0;
 var tiles;
 var heat;
 var areaSelect;
@@ -167,7 +168,7 @@ function selectorChange(Limits){
 
 
 }
-
+ 
 function turnselectorOff(){
 	document.getElementById("OFF").style.display='none';
 	document.getElementById("ON").style.display='block';
@@ -188,12 +189,10 @@ function selectWh(w,h){
 	 areaSelect = L.areaSelect({width:w, height:h});
 	
 	   areaSelect.on("change", function() {
-		   if(ONchangeOFF){
+		 
              bounds = this.getBounds();
-           selectorChange({S:bounds.getSouthWest().lat,W:bounds.getSouthWest().lng,N:bounds.getNorthEast().lat,E:bounds.getNorthEast().lng})
-       
-            
-		   }
+        
+        
        });
 	  
 	areaSelect.addTo(map);
@@ -209,7 +208,7 @@ function turnselectorON(){
 	 areaSelect = L.areaSelect({width:200, height:300});
 	
 	   areaSelect.on("change", function() {
-		   if(ONchangeOFF){
+		   if(ONchangeOFF && heatVis){
              bounds = this.getBounds();
            selectorChange({S:bounds.getSouthWest().lat,W:bounds.getSouthWest().lng,N:bounds.getNorthEast().lat,E:bounds.getNorthEast().lng})
        
@@ -410,6 +409,9 @@ calc_MagNorm()
  * ############################################################################################################################
  * 
  */
+function HeatMapON(){
+	
+}
 function draw()
 {
 	
@@ -440,8 +442,34 @@ function draw_allMap(){
  * ####################################################################################################################
  * 
  */
+function CirclesOFF(){
+	d3.select("svg").remove();
+onlyretSVG=1;
+document.getElementById("CON").style.display='block';
+document.getElementById("COFF").style.display='none';
+circVis=0;
+}
 
-function CirclesON(){
+ function CirclesON(){
+	
+	heatVis=0;
+	if(!circVis){
+		circVis=1;
+	document.getElementById("CON").style.display='none';
+	document.getElementById("COFF").style.display='block';
+ 	map.removeLayer(heat);
+ 	if(ONchangeOFF){
+   areaSelect.remove();
+	map.removeLayer(areaSelect);
+ 
+	}
+	//draw_allMap();
+	//on_select=0;
+		document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+
+	
+	
+	
  	//select the map area and bounds
 	var w =window.screen.availWidth;
 	var h =  window.screen.availHeight*0.8;
@@ -463,7 +491,7 @@ function CirclesON(){
         .range(["#377eb8", "#4daf4a", "#e41a1c"])//color range
         .interpolate(d3.interpolateHcl);//interpolate it wiht HCL color not LAB
 
-d3.json(data, function(collection) {
+d3.json(" ", function(collection) {
     var path = d3.geo.path().projection(project),
         feature = g.selectAll("path").data(data.features).enter()
             .append("path") .attr('fill', get_color);
@@ -524,7 +552,7 @@ g   .attr("transform", "translate(" + -1 * (Dw ) + "," + -1 * (Dn ) + ")");
 });
 
 
-
+	}
 
 }
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -537,8 +565,8 @@ g   .attr("transform", "translate(" + -1 * (Dw ) + "," + -1 * (Dn ) + ")");
  * ############################################################################################################################
  */
 function initMap(){
-	// container = L.DomUtil.get('map'),
-   // map = L.map(container).setView([-43.6, 172.3], 10);
+// container = L.DomUtil.get('map'),
+  // map = L.map(container).setView([0, 0], 2);
 
 	map = L.map('map').setView([0, 0], 2);
 	/* map = new L.Map('map', {
