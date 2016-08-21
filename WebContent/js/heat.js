@@ -414,6 +414,7 @@ function HeatMapON(){
 }
 function draw()
 {
+	  
 	
 	
 	 DataArray = DataArray.map(function (p) { 
