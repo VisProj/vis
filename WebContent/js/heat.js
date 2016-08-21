@@ -9,6 +9,8 @@
 var limits={N:87,S:-87,E:227,W:-227};
 var lat_unit;
 var lon_unit;
+var bounds ;
+var container;
 var currentmap;
 var lat_div=8;//to how many latitude region to divide the map (min is 3)
 var lon_div=12;//to how many longitude region to divide the map (min is 3)
@@ -32,31 +34,101 @@ var max_normto=1900;// a define var that contine the the value of the strongest 
 var on_select=0;
 
 /*#####################################################################################################################
- * ################################### @author ${Ebraheem_kashkoush} 								###################
- * ###################################Circles test 	    ###################
+ * ###################################           							###################
+ * ###################################Circles test 	                                                ###################
  * ################################### tags: #Circles												###################
  * ####################################################################################################################
  * 
  */
 
-//getPanes() : Returns an object with different map panes (to render overlays in)
-//overlayPane() : Pane for overlays like polylines and polygons.
 function CirclesON(){
-var svg = d3.select(
-		map.getPanes()
-		.overlayPane)
-		.append("svg"),
-		//The SVG <g> element is used to group SVG shapes together. Once grouped you can transform the whole 
-		//group of shapes as if it was a single shape. This is an advantage compared to a nested <svg> element
-		//which cannot be the target of transformation by itself
-		
-		//leaflet-zoom-hide : class to the DOM elements you create for the layer so that it hides during zoom animation. Implementing zoom animation for custom layers is a complex topic and will be documented separately in future, but meanwhile you can take a look at how it's done for Leaflet layers (e.g. ImageOverlay) in the source.
-	    g = svg.append("g").attr("class", "leaflet-zoom-hide"),
- 	    color = d3.scale.log() //scale is logrtim and nor lienar 
-	        .domain([5, 8, 17 ,30])// domain is the depth
-	        .range(["#d7191e", "#ffffbc", "#2c7bb9"])//color range
-	        .interpolate(d3.interpolateHcl);//interpolate it wiht HCL color not LAB
+ 	//select the map area and bounds
+	var w =window.screen.availWidth;
+	var h =  window.screen.availHeight*0.8;
+	selectWh(w,h);
+	//getPanes() : Returns an object with different map panes (to render overlays in)
+	//overlayPane() : Pane for overlays like polylines and polygons.
+	var svg = d3.select(map.getPanes().overlayPane).append("svg"),
+	//The SVG <g> element is used to group SVG shapes together. Once grouped you can transform the whole 
+	//group of shapes as if it was a single shape. This is an advantage compared to a nested <svg> element
+	//which cannot be the target of transformation by itself
+	
+	//leaflet-zoom-hide : class to the DOM elements you create for the layer so that it hides during zoom animation. 
+	//Implementing zoom animation for custom layers is a complex topic and will be documented separately in future,
+	//but meanwhile you can take a look at how it's done for Leaflet layers (e.g. ImageOverlay) in the source.
+    g = svg.append("g").attr("class", "leaflet-zoom-hide"),
+     color = d3.scale.log()
+     //max sig value is 1000 the the value interpolate bettwen this color
+        .domain([166, 266, 566 ,1000 ])
+        .range(["#377eb8", "#4daf4a", "#e41a1c"])//color range
+        .interpolate(d3.interpolateHcl);//interpolate it wiht HCL color not LAB
+
+d3.json(data, function(collection) {
+    var path = d3.geo.path().projection(project),
+        feature = g.selectAll("path").data(data.features).enter()
+            .append("path") .attr('fill', get_color);
+     path.pointRadius(function (d) {
+        var mag = d.properties.mag;
+        return mag * mag;
+    }
+    
+    );
+   //viewreset : Fired when the map needs to redraw its content (this usually happens on map zoom or load). Very useful for creating custom overlays.
+    map.on('viewreset', reset);
+    reset();
+
+    function reset() {
+var Ds=project([bounds.getSouthWest().lng,bounds.getSouthWest().lat])[1],
+	Dw=project([bounds.getSouthWest().lng,bounds.getSouthWest().lat])[0],
+	Dn= project([bounds.getNorthEast().lng,bounds.getNorthEast().lat])[1],
+	De= project([bounds.getNorthEast().lng,bounds.getNorthEast().lat])[0]; 	
+
+g   .attr("transform", "translate(" + -1 * (Dw ) + "," + -1 * (Dn ) + ")");
+
+			svg    .attr("height", Ds-Dn ).attr("width",De-Dw )
+            //we need to margin because in zooming the bounds is change and we need to marg them 
+            .style("margin-left",Dw + "px").style("margin-top", Dn  + "px");
+
+        feature.attr('d', path)
+            .attr("fill-opacity", 0.6)
+             .on("mouseover", function() {
+            	 d3.select(this).attr("fill-opacity", 1)
+                 .attr("stroke-width",2)
+                 .attr('stroke', "red");
+
+             })
+             
+             .on("mouseout", function() {
+            	 d3.select(this).attr("fill-opacity", 0.6)
+                 .attr("stroke-width",0)
+ 
+             });
+            
+     }
+
+
+    function project(x) {
+        var point = map.latLngToLayerPoint([x[1], x[0]]);
+        return [point.x, point.y];
+    }
+
+    function get_Sig(d) {    	
+    	//sig: A number describing how significant the event is. Larger numbers indicate a more significant event.
+    	//This value is determined on a number of factors, including: magnitude, maximum MMI, felt reports, and estimated impact.
+        return d.properties.sig;
+    }
+
+    function get_color(d) {
+        return d3.rgb(color(get_Sig(d))).toString();
+    }
+});
+
+
+
+
 }
+//viewreset : Fired when the map needs to redraw its content (this usually happens on map zoom or load). Very useful for creating custom overlays.
+
 
 
 
@@ -206,6 +278,24 @@ function turnselectorOff(){
 
 }
 
+function selectWh(w,h){
+	
+	 areaSelect = L.areaSelect({width:w, height:h});
+	
+	   areaSelect.on("change", function() {
+		   if(ONchangeOFF){
+             bounds = this.getBounds();
+           selectorChange({S:bounds.getSouthWest().lat,W:bounds.getSouthWest().lng,N:bounds.getNorthEast().lat,E:bounds.getNorthEast().lng})
+       
+            
+		   }
+       });
+	  
+	areaSelect.addTo(map);
+	on_select=2;
+	
+}
+
 function turnselectorON(){
 	document.getElementById("OFF").style.display='block';
 	document.getElementById("ON").style.display='none';
@@ -215,7 +305,7 @@ function turnselectorON(){
 	
 	   areaSelect.on("change", function() {
 		   if(ONchangeOFF){
-           var bounds = this.getBounds();
+             bounds = this.getBounds();
            selectorChange({S:bounds.getSouthWest().lat,W:bounds.getSouthWest().lng,N:bounds.getNorthEast().lat,E:bounds.getNorthEast().lng})
        
            calc_MagNorm();
@@ -446,6 +536,9 @@ function draw_allMap(){
  * ############################################################################################################################
  */
 function initMap(){
+	// container = L.DomUtil.get('map'),
+   // map = L.map(container).setView([-43.6, 172.3], 10);
+
 	map = L.map('map').setView([0, 0], 2);
 	/* map = new L.Map('map', {
 		  center: bounds.getCenter(),
@@ -570,7 +663,6 @@ function tabEvent(tabid) {
 }
 
 window.onLoad =init();
-
 
 
 
