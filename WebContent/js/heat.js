@@ -412,7 +412,16 @@ calc_MagNorm()
  * 
  */ 
 function HeatMapOFF(){
+	 
+	document.getElementById("HON").style.display='block';
+	document.getElementById("HOFF").style.display='none';
 	
+ 	map.removeLayer(heat);
+ 	if(ONchangeOFF){
+   areaSelect.remove();
+	map.removeLayer(areaSelect);
+	
+}
 }
 function HeatMapON(){
 	document.getElementById("HON").style.display='none';
