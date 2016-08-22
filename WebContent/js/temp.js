@@ -411,12 +411,7 @@ calc_MagNorm()
  * ############################################################################################################################
  * 
  */ 
-function HeatMapOFF(){
-	
-}
 function HeatMapON(){
-	document.getElementById("HON").style.display='none';
-	document.getElementById("HOFF").style.display='block';
 	 heatVis=1;
 	if(circVis)
 		CirclesOFF();
@@ -469,8 +464,7 @@ document.getElementById("CON").style.display='block';
 document.getElementById("COFF").style.display='none';
 circVis=0;
 map.removeLayer(areaSelect);
-//areaSelect.remove(); we cant remove becouse mybe he chose select after that
-on_select=0;
+areaSelect.remove();
 
 }
 
@@ -483,9 +477,6 @@ on_select=0;
 		document.getElementById("OFF").style.display='none';
 	document.getElementById("CON").style.display='none';
 	document.getElementById("COFF").style.display='block';
-	document.getElementById("HON").style.display='block';
-	document.getElementById("HOFF").style.display='none';
-	
  	map.removeLayer(heat);
  	if(ONchangeOFF){
    areaSelect.remove();
@@ -609,8 +600,6 @@ function initMap(){
 	 currentmap=tiles;
 }
 function style_init(){
-	
-	
 	var x= document.getElementsByClassName("tablinks");
 	 var i;
 	 for (i = 0; i < x.length; i++) {
@@ -620,8 +609,6 @@ function style_init(){
 	 for (i = 0; i < x.length; i++) {
 	     x[i].style.display='none' ;
 	 }
-	 
-	 
 }
 function init(){
 	style_init();
