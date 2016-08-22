@@ -411,6 +411,37 @@ calc_MagNorm()
  * ############################################################################################################################
  * 
  */ 
+function HeatSens(x){
+	if(x===0)
+		max_normto +=250;
+	if(x===1)
+		max_normto -=250;
+
+	 heatVis=1;
+		if(circVis)
+			CirclesOFF();
+		if(ONchangeOFF){
+			document.getElementById("OFF").style.display='none';
+			document.getElementById("ON").style.display='block';
+			on_select=0;
+
+			ONchangeOFF=0;
+			map.removeLayer(heat);
+			map.removeLayer(areaSelect);
+		 	areaSelect.remove();
+		}
+			 
+		else{
+			map.removeLayer(heat);
+ 			on_select=0;
+			
+		}
+	
+ 
+ 	REinit();
+	console.log(	max_normto);
+	
+}
 function HeatMapOFF(){
 	 
 	document.getElementById("HON").style.display='block';
@@ -421,7 +452,17 @@ function HeatMapOFF(){
    areaSelect.remove();
 	map.removeLayer(areaSelect);
 	
-}
+ 	}
+ 	if(circVis)
+		CirclesOFF();
+	 
+ 
+ 		
+			document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+
+		
+	
+
 }
 function HeatMapON(){
 	document.getElementById("HON").style.display='none';
@@ -631,6 +672,17 @@ function style_init(){
 	 }
 	 
 	 
+}
+function REinit(){
+ 	lastclick=0;
+ 	BuildRegionArr();
+	Data("jasonData");
+	DataArray2=DataArray;
+ 	draw();
+	AllMaxMag=MAX_MAG;
+	document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+	
+ 
 }
 function init(){
 	style_init();
