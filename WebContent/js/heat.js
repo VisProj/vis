@@ -336,8 +336,8 @@ function update(){
 
 }
 }
-function Data(key){
-
+function Data(key,x){
+if(x){
 data = localStorage.getItem(key);
 if(data != null){
 	data = JSON.parse(data);
@@ -364,6 +364,7 @@ localStorage.setItem(key, JSON.stringify(data));
 //console.log(data);
 
 size=data.length();
+}
 }
 }
 //////////////////////////////////////////////////////////////////////////////////////
@@ -411,35 +412,16 @@ calc_MagNorm()
  * ############################################################################################################################
  * 
  */ 
+
 function HeatSens(x){
 	if(x===0)
 		max_normto +=250;
 	if(x===1)
 		max_normto -=250;
 
-	 heatVis=1;
-		if(circVis)
-			CirclesOFF();
-		if(ONchangeOFF){
-			document.getElementById("OFF").style.display='none';
-			document.getElementById("ON").style.display='block';
-			on_select=0;
-
-			ONchangeOFF=0;
-			map.removeLayer(heat);
-			map.removeLayer(areaSelect);
-		 	areaSelect.remove();
-		}
-			 
-		else{
-			map.removeLayer(heat);
- 			on_select=0;
-			
-		}
-	
- 
- 	REinit();
-	console.log(	max_normto);
+	REINITE();
+	REinitEK(1);
+ 	console.log(	max_normto);
 	
 }
 function HeatMapOFF(){
@@ -643,6 +625,34 @@ g   .attr("transform", "translate(" + -1 * (Dw ) + "," + -1 * (Dn ) + ")");
  * ################################### tags: #INIT  											            ###################
  * ############################################################################################################################
  */
+ function REINIT(){
+//for external re INIT before to use it should give a new data to data var data=NEW_JSON_DATA
+	 //in our project used for parallel visulization  
+		REINITE();
+		REinitEK(0);
+	}
+	function REINITE(){
+		//Preparations befor INIT
+		heatVis=1;
+		if(circVis)
+			CirclesOFF();
+		if(ONchangeOFF){
+			document.getElementById("OFF").style.display='none';
+			document.getElementById("ON").style.display='block';
+			on_select=0;
+
+			ONchangeOFF=0;
+			map.removeLayer(heat);
+			map.removeLayer(areaSelect);
+		 	areaSelect.remove();
+		}
+			 
+		else{
+			map.removeLayer(heat);
+				on_select=0;
+			
+		}
+	}
 function initMap(){
 // container = L.DomUtil.get('map'),
   // map = L.map(container).setView([0, 0], 2);
@@ -673,10 +683,13 @@ function style_init(){
 	 
 	 
 }
-function REinit(){
+function REinitEK(x){
+	//like INIT but we not re define map and also to intilaize dar var from local storge or file we should send 1 else 0
  	lastclick=0;
- 	BuildRegionArr();
-	Data("jasonData");
+	MAX_MAG=0;
+
+ 	 BuildRegionArr();
+  	Data("jasonData",x);
 	DataArray2=DataArray;
  	draw();
 	AllMaxMag=MAX_MAG;
@@ -689,7 +702,7 @@ function init(){
 	lastclick=0;
 	MAX_MAG=0;
 	BuildRegionArr();
-	Data("jasonData");
+	Data("jasonData",1);
 	DataArray2=DataArray;
 	initMap();
 	draw();
