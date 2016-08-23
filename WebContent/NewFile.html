@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="windows-1255">
+<title>Insert title here</title>
+</head>
+<body>
+<p id="demo">gh</p>
+<script>
+function GetDataInArray()
+{
+	/*returns the subject list in the exam */
+	$.ajax(
+	    type: 'GET', 
+        url :"http://localhost:8080/ParallelVisualization/data/all_hour.csv",
+        error : function() {
+
+            alert("Error Occured");
+        },
+        success : function(data) {
+				document.getElementById("demo").innerHTML +=  "ss";
+        }
+    });
+	
+}
+GetDataInArray();
+</script>
+</body>
+</html>

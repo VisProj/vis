@@ -1,0 +1,50 @@
+time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,type,horizontalError,depthError,magError,magNst,status,locationSource,magSource
+2016-08-15T21:30:31.300Z,33.111,-117.1696667,5.09,1.01,ml,22,117,0.06565,0.18,ci,ci37446999,2016-08-15T21:34:13.197Z,"4km S of San Marcos, CA",earthquake,0.41,1.04,0.119,20,automatic,ci,ci
+2016-08-15T21:30:23.940Z,38.8256683,-122.8213348,1.05,1.23,md,13,69,0.009084,0.02,nc,nc72677931,2016-08-15T21:31:59.459Z,"7km NW of The Geysers, California",earthquake,0.21,0.55,0.17,3,automatic,nc,nc
+2016-08-15T21:26:40.810Z,33.9841667,-116.7138333,12.37,1.11,ml,21,101,0.07703,0.2,ci,ci37446991,2016-08-15T21:30:16.721Z,"10km NE of Cabazon, CA",earthquake,0.39,0.92,0.283,31,automatic,ci,ci
+2016-08-15T21:18:00.870Z,33.9888333,-116.7201667,12.14,1.73,ml,59,33,0.07781,0.19,ci,ci37446967,2016-08-15T21:28:29.370Z,"10km NE of Cabazon, CA",earthquake,0.23,0.61,0.244,26,automatic,ci,ci
+2016-08-15T21:16:24.360Z,33.9821667,-116.7203333,0.75,0.85,ml,20,82,0.08231,0.16,ci,ci37446959,2016-08-15T21:19:49.951Z,"10km NE of Cabazon, CA",earthquake,0.32,0.67,0.124,26,automatic,ci,ci
+2016-08-15T21:15:16.000Z,64.8132,-147.7095,10,0.8,ml,,,,0.7,ak,ak13846549,2016-08-15T21:30:29.933Z,"2km S of Fairbanks, Alaska",earthquake,0.2,0.2,,,automatic,ak,ak
+2016-08-15T21:10:49.000Z,61.22,-151.0192,50,2.3,ml,,,,0.67,ak,ak13846541,2016-08-15T21:30:29.324Z,"60km W of Anchorage, Alaska",earthquake,0.3,0.7,,,automatic,ak,ak
+2016-08-15T21:10:25.405Z,39.7824,-120.7321,11.1,1.3,ml,15,97.95,0.032,0.1511,nn,nn00556361,2016-08-15T21:28:00.767Z,"22km SE of East Quincy, California",earthquake,,2,0.41,5,reviewed,nn,nn
+2016-08-15T21:09:57.270Z,33.1108333,-117.1643333,3.13,1.32,ml,24,142,0.06922,0.23,ci,ci37446951,2016-08-15T21:13:32.838Z,"4km S of San Marcos, CA",earthquake,0.62,1.19,0.325,30,automatic,ci,ci
+2016-08-15T21:07:31.000Z,62.4265,-152.5915,5,1.5,ml,,,,0.95,ak,ak13846538,2016-08-15T21:16:07.219Z,"128km W of Talkeetna, Alaska",earthquake,0.3,0.3,,,automatic,ak,ak
+2016-08-15T21:05:34.820Z,38.7908325,-122.7623367,0.99,0.88,md,9,125,0.02013,0.01,nc,nc72677896,2016-08-15T21:07:09.087Z,"1km NNW of The Geysers, California",earthquake,0.47,1.22,0.01,3,automatic,nc,nc
+2016-08-15T21:02:16.370Z,33.9798317,-116.7163315,9.21,3.48,ml,119,22,0.0867,0.21,ci,ci37446943,2016-08-15T21:40:43.044Z,"10km NE of Cabazon, CA",earthquake,0.19,0.53,0.238,15,reviewed,ci,ci
+2016-08-15T20:57:38.610Z,33.9543333,-116.8726667,16.43,0.93,ml,22,85,0.1485,0.27,ci,ci37446927,2016-08-15T21:01:22.447Z,"3km N of Banning, CA",earthquake,0.43,1.4,0.208,31,automatic,ci,ci
+2016-08-15T20:51:09.000Z,59.5002,-152.9306,90,2.1,ml,,,,0.57,ak,ak13846534,2016-08-15T21:02:08.524Z,"69km WSW of Anchor Point, Alaska",earthquake,0.3,0.3,,,automatic,ak,ak
+2016-08-15T20:49:43.120Z,36.7036667,-121.3426666,4.37,0.98,md,8,129,0.07297,0.01,nc,nc72677886,2016-08-15T20:51:19.090Z,"12km S of Ridgemark, California",earthquake,0.35,2.1,0.37,8,automatic,nc,nc
+2016-08-15T20:41:31.000Z,63.2173,-150.4632,120,1.1,ml,,,,,ak,ak13846532,2016-08-15T20:48:16.849Z,"78km WSW of Cantwell, Alaska",earthquake,,,,,automatic,ak,ak
+2016-08-15T20:27:06.800Z,38.8404999,-122.8778305,2.02,0.93,md,13,90,0.004945,0.02,nc,nc72677871,2016-08-15T20:28:44.085Z,"12km ENE of Cloverdale, California",earthquake,0.32,0.51,0.12,3,automatic,nc,nc
+2016-08-15T20:17:57.106Z,40.0324,-120.8037,4.5,0.6,ml,7,157.87,0.064,0.0887,nn,nn00556350,2016-08-15T20:44:56.590Z,"13km NE of East Quincy, California",earthquake,,5.2,0.09,3,reviewed,nn,nn
+2016-08-15T19:54:58.770Z,39.7736664,-121.9036636,13.86,2.5,md,6,212,0.4535,0.02,nc,nc72677851,2016-08-15T19:56:51.941Z,"7km NW of Chico, California",earthquake,1.07,1.44,,1,automatic,nc,nc
+2016-08-15T19:54:28.965Z,40.0548,-119.2435,17.1,1.1,ml,7,210.58,0.361,0.1503,nn,nn00556349,2016-08-15T20:41:50.516Z,"49km N of Fernley, Nevada",earthquake,,4.6,0.05,2,reviewed,nn,nn
+2016-08-15T19:41:00.110Z,33.0536667,-116.4288333,2.17,1.04,ml,26,67,0.1443,0.26,ci,ci37446879,2016-08-15T19:44:45.100Z,"16km E of Julian, CA",earthquake,0.45,1.61,0.136,29,automatic,ci,ci
+2016-08-15T19:39:33.960Z,33.6756667,-116.7705,15.97,0.96,ml,30,48,0.05882,0.18,ci,ci37446871,2016-08-15T19:43:18.089Z,"9km SSW of Idyllwild, CA",earthquake,0.3,0.48,0.118,28,automatic,ci,ci
+2016-08-15T19:10:00.910Z,38.7766685,-122.7259979,1.06,1.38,md,10,86,0.007643,0.03,nc,nc72677821,2016-08-15T19:11:38.386Z,"2km E of The Geysers, California",earthquake,0.28,0.38,0.11,7,automatic,nc,nc
+2016-08-15T18:49:26.971Z,39.5796,-119.0949,9.9,1.2,ml,11,166.1,0.259,0.1167,nn,nn00556344,2016-08-15T20:20:19.428Z,"13km ESE of Fernley, Nevada",earthquake,,8.1,0.19,7,reviewed,nn,nn
+2016-08-15T18:49:25.592Z,39.5625,-119.1499,10.2,1.2,ml,10,157.95,0.234,0.1297,nn,nn00556335,2016-08-15T20:20:13.379Z,"10km ESE of Fernley, Nevada",earthquake,,3.2,0.19,8,reviewed,nn,nn
+2016-08-15T18:42:30.970Z,36.5830002,-121.1801682,2.77,1.92,md,15,84,0.09314,0.04,nc,nc72677811,2016-08-15T19:20:56.445Z,"21km NE of Soledad, California",earthquake,0.28,1.63,0.27,13,automatic,nc,nc
+2016-08-15T18:33:45.356Z,39.5763,-119.102,11.8,1.4,ml,12,165.27,0.256,0.165,nn,nn00556330,2016-08-15T18:45:00.106Z,"13km ESE of Fernley, Nevada",earthquake,,1.9,0.1,7,reviewed,nn,nn
+2016-08-15T18:01:00.280Z,-22.368,172.8141,10,5.1,mb,,107,4.528,1.31,us,us10006dym,2016-08-15T18:21:27.107Z,"78km E of Ile Hunter, New Caledonia",earthquake,9,1.9,0.059,95,reviewed,us,us
+2016-08-15T18:00:41.000Z,61.793,-151.6962,100,1.9,ml,,,,0.7,ak,ak13846497,2016-08-15T18:11:10.560Z,"87km W of Willow, Alaska",earthquake,0.4,0.6,,,automatic,ak,ak
+2016-08-15T17:59:52.000Z,65.7032,-154.7689,10,1.5,ml,,,,0.4,ak,ak13846500,2016-08-15T18:18:07.055Z,"112km NNE of Ruby, Alaska",earthquake,0.9,0.4,,,automatic,ak,ak
+2016-08-15T17:41:40.700Z,18.8423,-64.2764,38,2.1,Md,4,334.8,0.53180265,0.07,pr,pr16228007,2016-08-15T19:52:02.702Z,"59km NE of Road Town, British Virgin Islands",earthquake,4.1,5.9,0,4,reviewed,pr,pr
+2016-08-15T17:37:15.170Z,39.1756668,-123.0541687,9.17,2.02,md,10,112,0.1825,0.05,nc,nc72677781,2016-08-15T17:47:53.716Z,"10km ENE of Talmage, California",earthquake,0.31,1.66,0.19,6,automatic,nc,nc
+2016-08-15T17:28:46.390Z,38.841835,-122.8746643,2.14,1.67,md,26,82,0.005063,0.03,nc,nc72677771,2016-08-15T17:30:23.121Z,"12km NW of The Geysers, California",earthquake,0.24,0.33,0.1,8,automatic,nc,nc
+2016-08-15T17:27:54.000Z,66.296,-149.8805,10,1.2,ml,,,,0.63,ak,ak13846492,2016-08-15T17:44:01.407Z,"107km S of Coldfoot, Alaska",earthquake,0.3,0.4,,,automatic,ak,ak
+2016-08-15T17:20:09.950Z,33.5016667,-116.5305,8.51,0.79,ml,27,81,0.05569,0.19,ci,ci37446775,2016-08-15T17:23:47.845Z,"14km ESE of Anza, CA",earthquake,0.26,0.56,0.135,25,automatic,ci,ci
+2016-08-15T17:18:26.100Z,17.801,-66.8821,9,2,Md,3,338.4,0.22637545,0.1,pr,pr16228006,2016-08-15T19:40:55.446Z,"19km S of Guanica, Puerto Rico",earthquake,1.8,8.6,0,3,reviewed,pr,pr
+2016-08-15T17:06:21.290Z,30.5293,-114.347,10,4.5,mb,,181,0.666,0.97,us,us10006dxr,2016-08-15T19:25:06.576Z,"72km SE of San Felipe, Mexico",earthquake,7.1,1.9,0.054,100,reviewed,us,us
+2016-08-15T16:57:27.310Z,36.6931648,-121.3470001,0.28,0.92,md,8,145,0.06495,0.09,nc,nc72677756,2016-08-15T16:59:03.496Z,"13km S of Ridgemark, California",earthquake,0.6,2.36,0.26,8,automatic,nc,nc
+2016-08-15T16:55:16.710Z,33.4991667,-116.5273333,8.1,0.42,ml,22,84,0.05826,0.14,ci,ci37446751,2016-08-15T18:21:56.079Z,"15km ESE of Anza, CA",earthquake,0.24,0.62,0.125,10,reviewed,ci,ci
+2016-08-15T16:21:50.490Z,36.704834,-121.3406677,4.13,1.84,md,19,55,0.06632,0.04,nc,nc72677746,2016-08-15T16:23:29.339Z,"12km S of Ridgemark, California",earthquake,0.24,1.21,0.23,18,automatic,nc,nc
+2016-08-15T16:17:21.520Z,36.7033348,-121.3368301,4.88,3.62,mw,62,48,0.06294,0.07,nc,nc72677741,2016-08-15T20:25:43.048Z,"12km SSE of Ridgemark, California",earthquake,0.13,0.51,,5,reviewed,nc,nc
+2016-08-15T16:16:27.000Z,65.4196,-144.7398,5,1.5,ml,,,,0.76,ak,ak13846068,2016-08-15T16:26:17.462Z,"6km SSW of Circle Hot Springs Station, Alaska",earthquake,0.3,0.3,,,automatic,ak,ak
+2016-08-15T16:06:10.000Z,61.7192,-150.873,50,2,ml,,,,0.37,ak,ak13846064,2016-08-15T16:19:20.014Z,"44km W of Willow, Alaska",earthquake,0.4,0.9,,,automatic,ak,ak
+2016-08-15T16:00:50.480Z,33.6825,-116.9208333,12.47,0.83,ml,26,40,0.005203,0.12,ci,ci37446703,2016-08-15T18:21:57.098Z,"8km SSW of Valle Vista, CA",earthquake,0.23,0.32,0.113,21,reviewed,ci,ci
+2016-08-15T15:59:09.420Z,34.4393333,-119.2778333,4.92,1.59,ml,13,80,0.04566,0.16,ci,ci37446687,2016-08-15T16:03:02.994Z,"3km WSW of Ojai, CA",earthquake,0.48,0.65,0.459,31,automatic,ci,ci
+2016-08-15T15:58:46.540Z,36.3168335,-120.3454971,38.47,1.77,md,6,136,0.02737,0.32,nc,nc72677721,2016-08-15T16:00:23.180Z,"19km N of Coalinga, California",earthquake,4.58,8.73,0.2,5,automatic,nc,nc
+2016-08-15T15:58:10.660Z,33.502,-116.524,9.22,0.91,ml,31,67,0.05566,0.18,ci,ci37446679,2016-08-15T18:22:53.810Z,"15km ESE of Anza, CA",earthquake,0.23,0.45,0.184,24,reviewed,ci,ci
+2016-08-15T15:47:19.910Z,37.2362,-116.0226,5.8,0.2,ml,8,262.28,0.053,0.1404,nn,nn00556292,2016-08-15T16:19:43.298Z,"74km ENE of Beatty, Nevada",earthquake,,2.2,0.16,3,reviewed,nn,nn
+2016-08-15T15:46:23.540Z,33.6801667,-116.9241667,12.8,0.64,ml,22,68,0.006901,0.18,ci,ci37446663,2016-08-15T18:22:12.714Z,"8km SSW of Valle Vista, CA",earthquake,0.38,0.5,0.157,13,reviewed,ci,ci

@@ -1,8 +1,39 @@
 
+function GetJsonData()
+{
+var jsdata;
+$.ajax({
+
+        url : "data/month.json",
+      //  dataType : 'obj',
+    
+        error : function() {
+            alert("Error Occured while quering the data");
+        },
+        success : function(data) {
+       
+       var res = datamining(data.features);
+        	parcoords
+            .data(res)
+            .color(color)
+            //.scale(x)
+            .hideAxis(["name"])
+            .composite("darker")
+            .render()
+            .shadows()
+            .reorderable()
+            .brushMode("1D-axes");  // enable brushing
+        	
+        }
+    });
+
+}
+
+
 // quantitative color scale
 var blue_to_brown = d3.scale.linear()
-  .domain([9, 50])
-  .range(["steelblue", "brown"])
+  .domain([1, 50])
+  .range(["red", "green"])
   .interpolate(d3.interpolateLab);
 
 var color = function(d) { return blue_to_brown(d['economy (mpg)']); };
@@ -16,12 +47,14 @@ var x = d3.scale.log()
 .range([0, 900]);
 
 // load csv file and create the chart
-d3.csv('data/all_month.csv', function(data) {
+/*d3.csv('data/all_month.csv', function(data) {
+	
+	var dt =GetJsonData();
+	console.log("batmans");
+	console.log(dt);
+	
+	var res = dt;//datamining(dt);
 
-	jsondata = JSON.parse(JSON.stringify(data));
-	//var res =dataParsing(data);
-	//console.log("json = "+jsondata);
-	var res = datamining(data);
 	parcoords
     .data(res)
     .color(color)
@@ -34,7 +67,7 @@ d3.csv('data/all_month.csv', function(data) {
     .brushMode("1D-axes");  // enable brushing
 	
 });
-
+*/
 var sltBrushMode = d3.select('#sltBrushMode')
 
 sltBrushMode.selectAll('option')
@@ -80,21 +113,24 @@ function datamining(data)
 	var i;
 	var data_length = data.length ; 
 	var data_result = new Array();
-	console.log(data_length);
 	var Location ; 
 	var info_accuracy;
+	var depth;
+	var max_depth= -1;
+	var min_depth= 500;
+	
 	for(i=0;i<data_length; i++)
 	{
-		Location = GetLocation(data[i].place);
-		info_accuracy = GetAccuracy(data[i]) ;
-		data_result.push({"Location":Location,"mag":data[i].mag,"depth":data[i].depth,"Accuracy":info_accuracy});
+		Location = GetLocation(data[i].properties.place);
+		info_accuracy = 0;//GetAccuracy(data.properties[i]) ;
+		depth = data[i].geometry.coordinates[2];
+		if(isNaN(depth))
+		{
+			depth =-1;	
+		}
+		data_result.push({"Location":Location,"mag":data[i].properties.mag,"depth":depth,"sig":data[i].properties.sig});
 		
 	}
-	/** print the data 
-	for(i=0;i<data_length; i++)
-	{
-		console.log(JSON.stringify(data_result[i]));
-	}*/
 	
 	data_result = MergeEarthQuakesDataByLocation(data_result);
 	return data_result;
@@ -112,11 +148,11 @@ function MergeEarthQuakesDataByLocation(data)
 	var indexOfLocation = new Array();
 	var allLocations = "";
 	var index  = 0;
-	var temp_arrr = [];
+	var Locations_arr = [];
 	
 	/*initiate result with first element , for later uses 
 	 * */
-	result.push({"Location":"Others","number":0,"mag":0,"depth":0,"Accuracy":0,"HighAlerts":0});
+	result.push({"Location":"Others","number":0,"mag":0,"depth":0,"sig":0,"HighAlerts":0});
 	
 	/* Get a String with all the diffrent locations of the earthquakes in the data of the format "location1,location2,...,locationN"
 	* initialize a data Arrya with all locations . 
@@ -127,10 +163,10 @@ function MergeEarthQuakesDataByLocation(data)
 		if(allLocations.indexOf(Location)== -1)
 		{
 			allLocations +=  Location +","; 
-			result.push({"Location":Location,"number":0,"mag":0,"depth":0,"Accuracy":0,"HighAlerts":0});
+			result.push({"Location":Location,"number":0,"mag":0,"depth":0,"sig":0,"HighAlerts":0});
 			indexOfLocation.push({"Location":Location,"index":index});
 			
-			temp_arrr[Location]= index;
+			Locations_arr[Location]= index;
 			index++;
 		}
 	}
@@ -141,13 +177,16 @@ function MergeEarthQuakesDataByLocation(data)
 	{
 		
 		Location = data[i].Location;
-		x=temp_arrr[Location];
+		x=Locations_arr[Location];
 		if(result[x]!= undefined)
 		{
 			result[x].mag = result[x].mag  + parseFloat(data[i].mag);
 			result[x].depth = result[x].depth  + parseInt(data[i].depth);
 			result[x].number = result[x].number  +1;
-			result[x].Accuracy = result[x].Accuracy  +data[i].Accuracy;
+			//result[x].Accuracy = result[x].Accuracy  +data[i].Accuracy;
+			result[x].sig = result[x].sig  + parseInt(data[i].sig);
+			
+		
 			if(result[x].mag >=4.5)
 			{
 				result[x].HighAlerts = result[x].HighAlerts  +1;
@@ -168,7 +207,8 @@ function MergeEarthQuakesDataByLocation(data)
 			result[0].mag = result[0].mag + result[i].mag;
 			result[0].depth = result[0].depth + result[i].depth;
 			result[0].number = result[0].number + result[i].number;
-			result[0].Accuracy = result[0].Accuracy + result[i].Accuracy;
+		//	result[0].Accuracy = result[0].Accuracy + result[i].Accuracy;
+			result[0].sig = result[0].sig + result[i].sig;
 			result[0].HighAlerts = result[0].HighAlerts + result[i].HighAlerts;
 			//remove the query from results .
 			result.splice(i,1);
@@ -178,17 +218,17 @@ function MergeEarthQuakesDataByLocation(data)
 		}
 	}
 	
-	console.log(" *************************************************************************")
+	
 	//merge two Earthquakes with the same location 
 	console.log("data length  "+ result.length);
-	console.log(temp_arrr);
+	console.log(Locations_arr);
 	
 	
 	
 	/** Normalize the Data ***/
 	var results_length = result.length;
 	var norm = 1;
-	console.log("*************************************************");
+
 	var count =0;
 	var max_depth=0;
 	var min_depth=1000;
@@ -207,12 +247,8 @@ function MergeEarthQuakesDataByLocation(data)
 			count++;
 			result[i].depth= 0;
 		}
-		
-		if(result[i].depth > max_depth) max_depth=result[i].depth;
-		if(result[i].depth < min_depth) min_depth=result[i].depth;
-		
-		result[i].Accuracy =result[i].Accuracy/norm;
-		console.log(result[i]);
+		result[i].sig = result[i].sig/norm;
+		//result[i].Accuracy =result[i].Accuracy/norm;
 	}
 
 	console.log("*************************************************");	
@@ -270,6 +306,12 @@ function GetAccuracy(earthquake)
 	var accuracy  = magError+ depthError + horizontalError+dmin+gap +nst;
 	return parseInt(accuracy); 
 }
+
+
+function init()
+{
+	GetJsonData();
+}
 function GetLocation(Location)
 {
 	// location is a string of the foramt : [ distans in kilometers (North/South/west.east) of "landmark " , city ]
@@ -277,7 +319,9 @@ function GetLocation(Location)
 	// we only need the city 
 	var temp=Location.split(",");
 	if(temp.length==1)
-		return "unknown";
+		return "Others";
 	return temp[temp.length-1];
 }
 
+
+init();

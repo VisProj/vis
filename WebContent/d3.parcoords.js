@@ -43,7 +43,7 @@ d3.parcoords = function(config) {
   }
 var pc = function(selection) {
   selection = pc.selection = d3.select(selection);
-
+  
   __.width = selection[0][0].clientWidth;
   __.height = selection[0][0].clientHeight;
 
@@ -55,6 +55,14 @@ var pc = function(selection) {
     ctx[layer] = canvas[layer].getContext("2d");
   });
 
+/*  var blue_to_brown = d3.scale.linear()
+  .domain([1, 50])
+  .range(["red", "green"])
+  .interpolate(d3.interpolateLab);
+
+var color2 = function(d) { return blue_to_brown(d['economy (mpg)']); };*/
+
+// svg stylele batman
   // svg tick and brush layers
   pc.svg = selection
     .append("svg")
@@ -62,9 +70,9 @@ var pc = function(selection) {
       .attr("height", __.height)
       .style("font", "14px sans-serif")
       .style("position", "absolute")
-
     .append("svg:g")
       .attr("transform", "translate(" + __.margin.left + "," + __.margin.top + ")");
+  	
 
   return pc;
 };
@@ -924,6 +932,9 @@ pc.reorderable = function() {
         });
       })
       .on("dragend", function(d) {
+    	  //batman
+    	  console.log("draged");
+    	  console.log(d);
         // Let's see if the order has changed and send out an event if so.
         var i = 0,
             j = __.dimensions[d].index,
@@ -1064,8 +1075,9 @@ function brushUpdated(newSelection) {
 }
 
 function brushPredicate(predicate) {
+	
   if (!arguments.length) { return brush.predicate; }
-
+  
   predicate = String(predicate).toUpperCase();
   if (predicate !== "AND" && predicate !== "OR") {
     throw "Invalid predicate " + predicate;
@@ -1074,6 +1086,8 @@ function brushPredicate(predicate) {
   brush.predicate = predicate;
   __.brushed = brush.currentMode().selected();
   pc.renderBrushed();
+  console.log(pc);
+  //batman
   return pc;
 }
 
@@ -1239,9 +1253,19 @@ pc.brushMode = function(mode) {
 				}
 			})
 			.on("brush", function() {
-				brushUpdated(selected());
+			
+				/*
+				 * send the selected Elements to the haetmap
+				 * */
+				var selected_data= selected();
+				console.log("batman");
+				console.log(selected_data);
+
+				GetSelectedDataFromParrallel(selected());
+				brushUpdated(selected_data);
 			})
 			.on("brushend", function() {
+				
 				events.brushend.call(pc, __.brushed);
 			});
 

@@ -1,311 +1,272 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
-    <![endif]-->
-<script src="./js/d3.min.js" charset="utf-8"></script>
-    <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet-src.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <link rel="stylesheet" href="./leaflet/leaflet.css" />
-  
-      <link rel="stylesheet" href="./css/leaflet-areaselect.css" />
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-    <style type="text/css">
-      html, body { margin: 0; padding: 0; height: 100%; }
-      #quake { min-height: 100%; 
-      }
-       #map {height: 80%;
-postion : relative;
-    clear: both;
-
-}
-       
-        body { font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
-        .ghbtns { position: relative; top: 4px; margin-left: 5px; }
-        a { color: #0077ff; }
-        
-        
-        
-       .action-list li{
-        font-size: 14px;
-        
-
-}
-
- #OFF{
-display:none ;
-}
-</style>
- <!-- 
- nav {
-margin-top: 14px;
-}
- nav .nav-section{
-    margin-right: 3%;
-    margin-left: 3%;
-    min-width: 200px;
-    float: left; 
-    border-radius:
-}
-.nav-section{
-position: relative;
-}
- nav .nav-section:first-child {
-      margin-left: 0; }
-     nav .nav-section:last-child {
-      margin-right: 0; }
-      
-      .nav-section,.MAP-list{
-    float: left;
-  text-align: center;
-  margin: 0 1.1%;
-
-} 
-.menu-hint{
-        background-color: #DEDEDE;
-  padding: 5px 5px;
-}
-
-.menu-hint p::after ,.active-links span::after{
-    content: " ";
-    display: inline-block;
-//for triangle border 12 give a square 12px * 12px  and top is black give black triangle  
-    border: 11px solid transparent;
-    border-top: 11px solid black;
-    float: right;
-}
-
-.menu .action-list,.active-links .active-list{
-        width: 100%;
-         position: absolute;
-  z-index: 2;
-  /*  visibility: hidden;*/
-   display:none;
-}
-
-.menu .action-list li,.active-links .active-list li{
-    width: 100%;
-        display: block;
-margin-left: -42px;
-background-color: white;
-
-margin-top:0;
-}
-.menu a,.active-list li a {
-    color: black;
-    width: 100%;
-}
-.menu .action-list li a,.active-links .active-list li a {
-
-      display: inline-block;
-     
-      border-bottom: 2px solid #A0A0A0;
-      opacity: 0.7;
-     }
-     /**************action list to remove margin li****/
-    
-.menu{
-    width: 100%;
-}
+<head>
+<meta charset="windows-1255">
+<title>Insert title here</title>
+</head>
+<body>
 
 
-     /*********************************************************************88
-     ************************ hover ********************************************
-     *************************************************************************/
- .menu-hint:hover{
-    background-color:#C0C0C0 ;
-    opacity: 0.9;
-
-}
-.menu:hover .menu-hint:hover p::after {
-  transform: rotate(180deg) translateY(50%);
-  transition:0.7s all;
-   }
-     .menu:hover .action-list ,.active-links:hover .active-list{
-
-    display: block;
-}
 
 
-.menu .action-list li{
-    width: 100%;
-        display: block;
-margin-left: -42px;
-background-color: white;
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="d3.parcoords.js"></script>
+<link rel="stylesheet" type="text/css" href="d3.parcoords.css">
+<div id="example" class="parcoords" style="width:360px;height:150px"></div>
 
-margin-top:0;
-}
-.menu a,.action-list li a {
-    color: black;
-    width: 100%;
-}
-.menu .action-list li a,.active-links .active-list li a {
+<div id="data-div">1232 <br/>
+<p id="datap"></p>
 
-      display: inline-block;
-     
-      border-bottom: 2px solid #A0A0A0;
-      opacity: 0.7;
-     }
- 
- 
- -->
-    
+<p id="p-id">id : </p>
+<p id="demo">44</p>
+</div>
+<div id="example2" class="parcoords" style="width:360px;height:150px"></div>
+<div id="example-zscore"></div>
+<div id="example1"></div>
+<script>
+var data = [
+  [0,-0,0,0,0,3,6 ],
+  [1,-1,1,2,1,6 ,8],
+  [2,-2,4,4,0.5,2,8],
+  [3,-3,9,6,0.33,4,8],
+  [4,-4,16,8,0.25,9,1]
+];
 
-<style type="text/css">
+var pc = d3.parcoords()("#example")
+  .data(data)
+  .render()
+  .createAxes();
+</script>
 
-ul
-{
-	 list-style: none;
-	 margin:0px;
-	 padding:0px;
-}
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
 
-#mapsList {
-       display: none;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    margin-top: 0px;
-    position: fixed;
-    text-align: left;
-    z-index: 1;
+<script type="text/javascript">
 
-}
 
-#mapsList  a {
-    color: black;
-    padding:12px;
-    text-decoration: none;
-//    display: block;
-}
+//linear color scale
+var blue_to_brown = d3.scale.linear()
+  .domain([9, 50])
+  .range(["steelblue", "brown"])
+  .interpolate(d3.interpolateLab);
 
-#mapsList a:hover {background-color: #f1f1f1}
+// interact with this variable from a javascript console
+var pc1;
 
-.menu:hover #mapsList {
-    display: block;
-}
+// load csv file and create the chart
+d3.csv('data/2.5_month.csv', function(data) {
 
-.menu-hint
+//	var data2 = JSON.parse(data);
+	console.log(JSON.stringify(data));
+	console.log(JSON.parse(JSON.stringify(data)));
+	alert("here");
+	pc1 = d3.parcoords()("#example1")
+    .data(data)
+    .hideAxis(["name"])
+    .composite("darken")
+    .color(function(d) { return blue_to_brown(d['economy (mpg)']); })  // quantitative color scale
+    .alpha(0.35)
+    .render()
+    .brushMode("1D-axes")  // enable brushing
+    .interactive()  // command line mode
+
+  var explore_count = 0;
+  var exploring = {};
+  var explore_start = false;
+  pc1.svg
+    .selectAll(".dimension")
+    .style("cursor", "pointer")
+    .on("click", function(d) {
+      exploring[d] = d in exploring ? false : true;
+      event.preventDefault();
+      if (exploring[d]) d3.timer(explore(d,explore_count));
+    });
+
+  function explore(dimension,count) {
+    if (!explore_start) {
+      explore_start = true;
+      d3.timer(pc1.brush);
+    }
+    var speed = (Math.round(Math.random()) ? 1 : -1) * (Math.random()+0.5);
+    return function(t) {
+      if (!exploring[dimension]) return true;
+      var domain = pc1.yscale[dimension].domain();
+      var width = (domain[1] - domain[0])/4;
+
+      var center = width*1.5*(1+Math.sin(speed*t/1200)) + domain[0];
+
+      pc1.yscale[dimension].brush.extent([
+        d3.max([center-width*0.01, domain[0]-width/400]),
+        d3.min([center+width*1.01, domain[1]+width/100])
+      ])(pc1.g()
+          .filter(function(d) {
+            return d == dimension;
+          })
+      );
+    };
+  };
+
+});
+</script>
+
+<script >
+
+
+
+
+function dataParse()
 {
 
- 
-    display: inline-block;
-    background-color: #DEDEDE;
-    padding: 4px 0px 5px 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    min-width: 145px;
+
+	$.ajax({ 
+	    type: 'GET', 
+	    url: 'http://localhost:8080/ParallelVisualization/data/LHData.json',  
+	    dataType: 'json',
+	    error : function() {
+
+            alert("Error Occured in CoursesList function");
+        },
+	    success: function (data) 
+	    { 
+	    	
+
+	    	var i ;
+			var singleQuake;
+			var EarthQuakes=[];
+			var id;
+	        var mag;  
+	        var time;
+	        var magType ;
+	        var alertLevel;
+	        var sig ;
+	        var Equake ;
+	        var properties;
+	 		var arrays= new Array(data.features.length);
+	 		document.getElementById("p-id").innerHTML +=data.features.length;
+			for(i=0;i<data.features.length;i++)
+   			{
+		    	 Equake =  data.features[i];
+		    	 properties = Equake.properties;
+		    
+				 id=Equake.id;
+		         mag= properties.mag; // [-1.0, 10.0]
+		         time =TimeConverter(properties.time);
+		         magType = properties.magType;
+		         //“Md”, “Ml”, “Ms”, “Mw”, “Me”, “Mi”, “Mb”, “MLg”
+		         
+		         alertLevel = properties.alert;
+		         if(alertLevel == "null")
+		        	 {
+		        	 aalertLevel= 0;
+		        	 }
+		         sig = properties.sig;// a number from 0 to 100 that shows how significant the event was
+	
+		       	arrays[i]=[i,2,2,3,3];//[id,mag,magType,alertLevel,sig];//,time];
+		   // singleQuake = {id:id,mag:mag,magType:magType,alertLevel:alertLevel,sig:sig,time:time};
+				document.getElementById("demo").innerHTML+= JSON.stringify(properties);
+		
+		//       EarthQuakes.push(arr);   			
+  			 }
+			var data2 = [
+			            [0,-0,0,0,0,3,6 ],
+			            [1,-1,1,2,1,6 ,8],
+			            [2,-2,4,4,0.5,2,8],
+			            [3,-3,9,6,0.33,4,8],
+			            [4,-4,16,8,0.25,9,1]
+			          ];
+
+			          var pc2 = d3.parcoords()("#example2")
+			            .data(arrays)
+			            .render()
+			            .createAxes();
+			   }
+	});
+	
 }
-.menu
+
+
+
+
+/**
+ *  status
+ 	Data Type
+ 	String
+ 	Typical Values
+ 	“automatic”, “reviewed”, “deleted”
+ 	
+ 	
+ 	
+ 	magNst
+ 	Data Type
+ 	Integer
+ 	Description
+ 	The total number of seismic stations used to calculate the magnitude for this earthquake.
+ 	
+ 	
+ 	magError
+ 	Data Type
+ 	Decimal
+ 	Typical Values
+ 	[0, 100]
+ 	Description
+ 	Uncertainty of reported magnitude of the event.
+ 	
+ 	
+ 	horizontalError
+ 	Data Type
+ 	Decimal
+ 	Typical Values
+ 	[0, 100]
+ 	Description
+ 	Uncertainty of reported location of the event in kilometers.
+ 	
+ 	gap
+ 	Data Type
+ 	Decimal
+ 	Typical Values
+ 	[0.0, 180.0]
+ 	Description
+ 	The largest azimuthal gap between azimuthally adjacent stations (in degrees). In general, the smaller this number, the more reliable is the calculated horizontal position of the earthquake
+ 	
+ 	dmin
+ 	Data Type
+ 	Decimal
+ 	Typical Values
+ 	[0.4, 7.1]
+ 	Description
+ 	Horizontal distance from the epicenter to the nearest station (in degrees). 1 degree is approximately 111.2 kilometers. In general, the smaller this number, the more reliable is the calculated depth of the earthquake.
+ 	
+ 	depthError
+ 	Data Type
+ 	Decimal
+ 	Typical Values
+ 	[0, 100]
+ 	Description
+ 	Uncertainty of reported depth of the event in kilometers.
+ 	
+ 	depth
+ 	Data Type
+ 	Decimal
+ 	Typical Values
+ 	[0, 1000]
+ 	Description
+ 	Depth of the event in kilometers.
+ 	
+ 	
+ 	
+ *//
+function TimeConverter(Milliseconds)
 {
-	float:left;
-	margin-left: 39px;
+		//Time when the event occurred. Times are reported in milliseconds 
+		//since the epoch ( 1970-01-01T00:00:00.000Z), and do not include leap seconds. 
+		//In certain output formats, the date is formatted for readability.
+		var date =  new Date();//1970-01-01T00:00:00.000Z);
+		date += parseInt(Milliseconds);
+		return new Date();// new Date(date)
+	
 }
 
-
-</style>
-
-
-
-    
-  </head>
-  <body>
-          <nav>
-  
-              <div class="nav-section navDashboard">
-                 <div class="menu" >
-  <div class="menu-hint">
-  		<p>Tools</p> 
-        <div class="arrow"></div>
-  </div>
-  
-  <ul id="mapsList" >                  
-         <li><a href="#" class="tablinks" id="ON" onclick="turnselectorON()">Select area</a></li>
-         <li><a href="#" class="tablinks FRSTNON" id="OFF" onclick="turnselectorOff()">UnSelect area</a></li>
-         
-         
-               
- </ul>
-    </div>
-              
-              
-              
-   <div class="menu" >
-  <div class="menu-hint">
-  		<p>Change map</p> 
-        <div class="arrow"></div>
-  </div>
-  
-  <ul id="mapsList" >                  
-         <li><a href="#" class="tablinks" onclick="tabEvent('Terrain')">Terrain map</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('toner')">toner map</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('OpenStreetMap')"> OpenStreetMap</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('watercolor')">   watercolor</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('outdoors')">   outdoors</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('dark')">   dark</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('light')">   light</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('satellite')">   satellite</a></li>
-		 <li><a href="#" class="tablinks" onclick="tabEvent('streets')">   streets</a></li>
-               
- </ul>
-    </div>
-       
-       
-       
-                        <div class="menu" >
-  <div class="menu-hint">
-  		<p>visualization</p> 
-        <div class="arrow"></div>
-  </div>
-  
-  <ul id="mapsList" >                  
-         <li><a href="#" class="tablinks" id="ON" onclick="HeatMapON()">Heat Map</a></li>
-         <li><a href="#" class="tablinks  " id="OFF" onclick="CirclesON()">circles</a></li>
-         
-         
-               
- </ul>
-    </div>
-       
-       
-       
-       
-       
-       <div class="menu" >
-       <a href="#" class="tablinks" onclick="update()">
-         <div class="menu-hint">
-  		<p>UPDATE the data</p> 
-        <div class="arrow"></div>
-  </div></a>
-    </div>
-    
-    
-                      </div>
-                    </nav>
-  <div id="map"></div>
-  <table>
-  <tr>
-  <td>max mag </td>
-  <td id="magtd"></td>
-  </tr>
-  </table>
-   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
-    <script src="./js/leaflet-areaselect.js"></script>
-  
-  
-  <script src="dist/leaflet-heat.js"></script>
-  
-       <script type="text/javascript" src="js/heat.js"></script>
-       
-       
-    
-  </body>
+dataParse();
+</script>
+</body>
 </html>
