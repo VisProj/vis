@@ -1,47 +1,75 @@
 var RawData =null;
 
+
+
+
+setTimeout( (function() {
+	  var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+	  $.getJSON( "http://localhost:8081/ParallelVisualization/data/month.json", {
+	    format: "json"
+	  })
+	    .done(function( data ) {
+	    RawData =data;
+	    console.log("herer");
+	    console.log(data);
+	    /*
+	      $.each( data.items, function( i, item ) {
+	    	  	RawData.push(item);
+	      
+	      });
+	      
+	      */
+	    });
+	})());
+
+setTimeout(function (){
+	console.log("sss");
+	console.log(RawData)}
+,10000);
+
 function GetSelectedDataFromParrallel (Selected_data)
 {
 	
 	/* Get all the quakes */
 	
-
+			var data = RawData;
 	    	console.log("Entered");
-
+	    
 	    	var selected_result = new Array(); /* contains the selected dotes from the raw data  */
 	        var i=0;
 	        var Location ="";
 	        var all_locations;
 	        var SD_length= Selected_data.length;
 	    	var Locations_arr = [];
-	    	var data ;
-	    	var Rd_length;
+	    	var allLocations="";
 	    	var index = 0; 
 	    	/* first get all locations for the data  */
 	    	
-	    	for(i=0;i<SD_length.length;i++)
+	    	for(i=0;i<SD_length;i++)
 	    	{
 	    		Location = Selected_data[i].Location;
+
+		    	
 	    		if(allLocations.indexOf(Location)== -1)
 	    		{
 	    			Locations_arr[Location]= index;
 	    			index ++;
-	    			console.log(Locations_arr[Location]);
+	    			allLocations=allLocations + ","+Location;
 	    		}
 	    	}
 	    	
-	    	
-			Rd_length = data.length; 
+	    	var l = data.features.length; 
 			//console.log(data.features[9]);
 			var temp;
 			var geo_point;
-			for(i=0;i<Rd_length;i++)
+			
+			console.log("length : " , l);
+			for(i=0;i<l;i++)
 			{
 				/**  for each earthquake check if it's location matches to one of the selected data locations then mark it **/
 				temp=data.features[i].properties;
 				geo_point=data.features[i].geometry.coordinates;
 				Location = GetLocation1(temp.place);
-				console.log(Location);
 				if(Locations_arr[Location])
 				{
 		
@@ -59,7 +87,6 @@ function GetSelectedDataFromParrallel (Selected_data)
 			 *   here call , your function from here and give it "selected_result"
 			 ************************************/
 		
-	
 }
 
 
