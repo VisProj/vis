@@ -1,31 +1,16 @@
 var RawData =null;
 
-
-
-
 setTimeout( (function() {
-	  var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
-	  $.getJSON( "http://localhost:8081/ParallelVisualization/data/month.json", {
+
+	$.getJSON( "http://localhost:8080/vis/data/month.json", {
 	    format: "json"
 	  })
 	    .done(function( data ) {
 	    RawData =data;
-	    console.log("herer");
-	    console.log(data);
-	    /*
-	      $.each( data.items, function( i, item ) {
-	    	  	RawData.push(item);
-	      
-	      });
-	      
-	      */
+	
 	    });
 	})());
 
-setTimeout(function (){
-	console.log("sss");
-	console.log(RawData)}
-,10000);
 
 function GetSelectedDataFromParrallel (Selected_data)
 {
@@ -36,6 +21,7 @@ function GetSelectedDataFromParrallel (Selected_data)
 	    	console.log("Entered");
 	    
 	    	var selected_result = new Array(); /* contains the selected dotes from the raw data  */
+	    	var selected_features = new Array();
 	        var i=0;
 	        var Location ="";
 	        var all_locations;
@@ -59,11 +45,11 @@ function GetSelectedDataFromParrallel (Selected_data)
 	    	}
 	    	
 	    	var l = data.features.length; 
-			//console.log(data.features[9]);
 			var temp;
 			var geo_point;
 			
 			console.log("length : " , l);
+			
 			for(i=0;i<l;i++)
 			{
 				/**  for each earthquake check if it's location matches to one of the selected data locations then mark it **/
@@ -72,20 +58,16 @@ function GetSelectedDataFromParrallel (Selected_data)
 				Location = GetLocation1(temp.place);
 				if(Locations_arr[Location])
 				{
-		
-					/*push the current point (earthquake */
-					selected_result.push({"longitude":geo_point[0],"latitude":geo_point[1],"depth":geo_point[2],"mag":temp.mag,"sig":temp.sig,"place":temp.place});
+					selected_features.push({"properties":{"mag":temp.mag,"sig":temp.sig,"place":temp.place},"geometry":{"coordinates":{"longitude":geo_point[0],"latitude":geo_point[1],"depth":geo_point[2]}}});
+					
 				}
 			}
 		
-			console.log(selected_result);
-			
-		
-			console.log("Exit");
-			
-			/********************************
-			 *   here call , your function from here and give it "selected_result"
-			 ************************************/
+			selected_result ={"features":selected_features};
+			var json_data= JSON.parse(JSON.stringify(selected_result));
+			console.log("heererer");
+			console.log(json_data.features);
+			REINIT(json_data);
 		
 }
 
@@ -99,20 +81,4 @@ function GetLocation1(Location)
 	if(temp.length==1)
 		return "Others";
 	return temp[temp.length-1];
-}
-
-function getRawData()
-{
-	RawData =$.ajax({
-	    url : "data/month.json",
-	    error : function() {
-	        alert("Error Occured while quering the data");
-	    },
-	    success : function(data)
-	    {
-	    	alert(data.features[0]);
-	    	return data.features; //RawData=data.features;
-	    }
-	});
-
 }

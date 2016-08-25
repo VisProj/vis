@@ -394,7 +394,7 @@ for(var i=0;i<DataArray.length;i++){
 	DataArray[i]=new Array(5);
 	DataArray[i][0]=data.features[i].geometry.coordinates[1];//.latitude;
 	DataArray[i][1]=data.features[i].geometry.coordinates[0];//.longitude;
-	DataArray[i][2]=data.features[i].geometry.coordinates[3];//.depth;
+	DataArray[i][2]=data.features[i].geometry.coordinates[2];//.depth;
 	DataArray[i][3]=calc_magS1(data.features[i].properties.mag);
 
 var	temp=onRegionArrIndex({lat:DataArray[i][0],lon:DataArray[i][1]});// its now correct 
@@ -409,7 +409,7 @@ RegionArr[temp].push({lat:DataArray[i][0],lon:DataArray[i][1],depth:DataArray[i]
 
 	
 }
-calc_MagNorm()
+calc_MagNorm();
 //DataArray.push( JSON.parse(data));
 //console.log(DataArray);
 
@@ -637,9 +637,10 @@ g   .attr("transform", "translate(" + -1 * (Dw ) + "," + -1 * (Dn ) + ")");
  * ################################### tags: #INIT  											            ###################
  * ############################################################################################################################
  */
- function REINIT(){
+ function REINIT(newdata){
 //for external re INIT before to use it should give a new data to data var data=NEW_JSON_DATA
 	 //in our project used for parallel visulization  
+	 data=newdata;
 		REINITE();
 		REinitEK(0);
 	}
@@ -700,8 +701,8 @@ function REinitEK(x){
  	lastclick=0;
 	MAX_MAG=0;
 
- 	 BuildRegionArr();
-  	Data("jasonData",x);
+ 	  BuildRegionArr();
+  	//Data("jasonData",x);
 	DataArray2=DataArray;
  	draw();
 	AllMaxMag=MAX_MAG;
