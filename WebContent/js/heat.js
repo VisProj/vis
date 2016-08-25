@@ -640,6 +640,7 @@ g   .attr("transform", "translate(" + -1 * (Dw ) + "," + -1 * (Dn ) + ")");
  function REINIT(newdata){
 //for external re INIT before to use it should give a new data to data var data=NEW_JSON_DATA
 	 //in our project used for parallel visulization  
+	 console.log(newdata);
 	 data=newdata;
 		REINITE();
 		REinitEK(0);
@@ -702,7 +703,7 @@ function REinitEK(x){
 	MAX_MAG=0;
 
  	  BuildRegionArr();
-  	//Data("jasonData",x);
+  	 Data("jasonData",x);
 	DataArray2=DataArray;
  	draw();
 	AllMaxMag=MAX_MAG;

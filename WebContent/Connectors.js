@@ -1,4 +1,15 @@
 var RawData =null;
+/*
+ * an array containing all the  locaton in the map that were tatgged as "Other"
+ * */
+var Location_Other =null;
+function setOthers(Others)
+{
+	Location_Other = Others;
+	console.log();
+	console.log(Location_Other);
+}
+
 
 setTimeout( (function() {
 
@@ -49,7 +60,7 @@ function GetSelectedDataFromParrallel (Selected_data)
 			var geo_point;
 			
 			console.log("length : " , l);
-			
+			var coordinants ;
 			for(i=0;i<l;i++)
 			{
 				/**  for each earthquake check if it's location matches to one of the selected data locations then mark it **/
@@ -57,16 +68,15 @@ function GetSelectedDataFromParrallel (Selected_data)
 				geo_point=data.features[i].geometry.coordinates;
 				Location = GetLocation1(temp.place);
 				if(Locations_arr[Location])
-				{
-					selected_features.push({"properties":{"mag":temp.mag,"sig":temp.sig,"place":temp.place},"geometry":{"coordinates":{"longitude":geo_point[0],"latitude":geo_point[1],"depth":geo_point[2]}}});
-					
+				{//"longitude":geo_point[0],"latitude":geo_point[1],"depth":geo_point[2]
+					coordinants=[geo_point[0],geo_point[1],geo_point[2]];
+					selected_features.push({"properties":{"mag":temp.mag,"sig":temp.sig,"place":temp.place},"geometry":{"coordinates":coordinants}});
+				
 				}
 			}
 		
 			selected_result ={"features":selected_features};
 			var json_data= JSON.parse(JSON.stringify(selected_result));
-			console.log("heererer");
-			console.log(json_data.features);
 			REINIT(json_data);
 		
 }
