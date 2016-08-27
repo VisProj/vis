@@ -22,6 +22,7 @@ var limits={N:87,S:-87,E:227,W:-227};
 var lat_unit;
 var lon_unit;
 var bounds ;
+var data2;
 var container;
 var currentmap;
 var heatVis=1;
@@ -334,7 +335,7 @@ function update(){
 	localStorage.removeItem("jasonData");
 
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET', './data/all_month.json', true);
+	xhr.open('GET', './data/month.json', true);
 	xhr.send(null);
 
 	xhr.onreadystatechange = function () {//nisted function
@@ -356,7 +357,7 @@ if(data != null){
 
 }else{
 var xhr = new XMLHttpRequest();
-xhr.open('GET', './data/all_month.json', true);
+xhr.open('GET', './data/month.json', true);
 xhr.send(null);
 
 xhr.onreadystatechange = function () {//nisted function
@@ -379,6 +380,8 @@ size=data.length();
 }
 }
 }
+//update();
+
 //////////////////////////////////////////////////////////////////////////////////////
 /*DataArray STRUCTER
  *ARRAY[ARRAY]=features [quake.properties]
@@ -566,7 +569,7 @@ on_select=0;
 
 d3.json(" ", function(collection) {
     var path = d3.geo.path().projection(project),
-        feature = g.selectAll("path").data(data.features).enter()
+        feature = g.selectAll("path").data(data2.features).enter()
             .append("path") .attr('fill', get_color);
      path.pointRadius(function (d) {
         var mag = d.properties.mag;
@@ -722,7 +725,7 @@ function init(){
 	draw();
 	AllMaxMag=MAX_MAG;
 	document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
-	
+	data2=data;
 	var popup = L.popup();
 
 	function onMapClick(e) {
@@ -733,11 +736,8 @@ function init(){
 	}
 
 	map.on('click', onMapClick);
-	
-	
-	
-	
-	
+ 	
+ 	
 }
 function tabEvent(tabid) {
    

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <!-- meta http-equiv="refresh" content="1"> no-cache-->
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
   
  <script src="lib/d3.min.js"></script>
 <script src="lib/d3.svg.multibrush.js"></script>
@@ -355,8 +357,23 @@ After releasing the mouse button, the selection will contain all lines that pass
   <script src="dist/leaflet-heat.js"></script>
   
        <script type="text/javascript" src="js/heat.js"></script>
-       
-       
+     <script type="text/javascript">
+$(document).ready(function(){
+
+//Check if the current URL contains '#' 
+if(document.URL.indexOf("#")==-1)
+{
+// Set the URL to whatever it was plus "#".
+url = document.URL+"#";
+location = "#";
+
+//Reload the page
+location.reload(true);
+
+}
+});
+</script> 
+ 
     
   </body>
 </html>
