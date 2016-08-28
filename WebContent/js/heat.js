@@ -218,6 +218,13 @@ function turnselectorON(){
 		HeatMapON();
 	document.getElementById("OFF").style.display='block';
 	document.getElementById("ON").style.display='none';
+	
+	document.getElementById("hlgradb").style.display='table-cell';
+	document.getElementById("hlgrad").style.display='table-cell';
+	document.getElementById("hlgrada").style.display='table-cell';
+	document.getElementById("lgradb").style.display='none';
+	document.getElementById("lgrad").style.display='none';
+	document.getElementById("lgrada").style.display='none';
 	ONchangeOFF=1;
 	if(on_select<1){
 	 areaSelect = L.areaSelect({width:200, height:300});
@@ -437,12 +444,21 @@ function HeatSens(x){
 	REINITE();
 	REinitEK(1);
  	console.log(	max_normto);
+ 	document.getElementById("hlgradb").style.display='table-cell';
+	document.getElementById("hlgrad").style.display='table-cell';
+	document.getElementById("hlgrada").style.display='table-cell';
+	document.getElementById("lgradb").style.display='none';
+	document.getElementById("lgrad").style.display='none';
+	document.getElementById("lgrada").style.display='none';
 	
 }
 function HeatMapOFF(){
 	 
 	document.getElementById("HON").style.display='block';
 	document.getElementById("HOFF").style.display='none';
+	document.getElementById("hlgradb").style.display='none';
+	document.getElementById("hlgrad").style.display='none';
+	document.getElementById("hlgrada").style.display='none';
 	
  	map.removeLayer(heat);
  	if(ONchangeOFF){
@@ -464,6 +480,12 @@ function HeatMapOFF(){
 function HeatMapON(){
 	document.getElementById("HON").style.display='none';
 	document.getElementById("HOFF").style.display='block';
+	document.getElementById("hlgradb").style.display='table-cell';
+	document.getElementById("hlgrad").style.display='table-cell';
+	document.getElementById("hlgrada").style.display='table-cell';
+	document.getElementById("lgradb").style.display='none';
+	document.getElementById("lgrad").style.display='none';
+	document.getElementById("lgrada").style.display='none';
 	 heatVis=1;
 	if(circVis)
 		CirclesOFF();
@@ -510,6 +532,9 @@ function draw_allMap(){
  * 
  */
 function CirclesOFF(){
+	document.getElementById("lgradb").style.display='none';
+	document.getElementById("lgrad").style.display='none';
+	document.getElementById("lgrada").style.display='none';
 	d3.select("svg").remove();
 onlyretSVG=1;
 document.getElementById("CON").style.display='block';
@@ -522,7 +547,14 @@ on_select=0;
 }
 
  function CirclesON(){
- 
+
+		document.getElementById("lgradb").style.display='table-cell';
+		document.getElementById("lgrad").style.display='table-cell';
+		document.getElementById("lgrada").style.display='table-cell';
+		document.getElementById("hlgradb").style.display='none';
+		document.getElementById("hlgrad").style.display='none';
+		document.getElementById("hlgrada").style.display='none';
+		
 	 heatVis=0;
 	if(!circVis){
 		circVis=1;
@@ -686,7 +718,12 @@ function initMap(){
 	 currentmap=tiles;
 }
 function style_init(){
-	
+	document.getElementById("hlgradb").style.display='table-cell';
+	document.getElementById("hlgrad").style.display='table-cell';
+	document.getElementById("hlgrada").style.display='table-cell';
+	document.getElementById("lgradb").style.display='none';
+	document.getElementById("lgrad").style.display='none';
+	document.getElementById("lgrada").style.display='none';
 	
 	var x= document.getElementsByClassName("tablinks");
 	 var i;

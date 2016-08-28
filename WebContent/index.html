@@ -27,6 +27,14 @@
        
     
     <style type="text/css">
+    #lgrad{
+    background: linear-gradient(to right,#377eb8,#4daf4a, #e41a1c);
+   min-width: 200px;    }
+    #hlgrad{
+    background: linear-gradient(to right,  blue, cyan, green, yellow, red);
+   min-width: 200px;    }
+      
+   
       html, body { margin: 0; padding: 0; height: 100%; }
       #quake { min-height: 100%; 
       }
@@ -314,6 +322,13 @@ ul
   <tr>
   <td>max mag </td>
   <td id="magtd"></td>
+  <td id="lgradb">&nbsp;&nbsp;&nbsp;&nbsp;low sig</td>
+  <td id="lgrad"></td>
+    <td id="lgrada">high sig</td>
+     <td id="hlgradb">&nbsp;&nbsp;&nbsp;&nbsp;low  </td>
+  <td id="hlgrad"></td>
+    <td id="hlgrada">high  </td>
+  
   </tr>
   </table>
   
@@ -357,6 +372,7 @@ After releasing the mouse button, the selection will contain all lines that pass
   <script src="dist/leaflet-heat.js"></script>
   
        <script type="text/javascript" src="js/heat.js"></script>
+       
      <script type="text/javascript">
 $(document).ready(function(){
 
