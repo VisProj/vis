@@ -1086,7 +1086,7 @@ function brushPredicate(predicate) {
   brush.predicate = predicate;
   __.brushed = brush.currentMode().selected();
   pc.renderBrushed();
-  console.log(pc);
+  console.log("pc = ",pc);
   //batman
   return pc;
 }
@@ -1305,6 +1305,7 @@ pc.brushMode = function(mode) {
 	};
 
 	function install() {
+		
 		if (!g) pc.createAxes();
 
 		// Add and store a brush for each axis.
@@ -2551,3 +2552,18 @@ d3.renderQueue = (function(func) {
 
   return rq;
 });
+
+
+/***********************************/
+
+function updateDataFromHeatMap(selectedData)
+{
+	console.log("i am here");
+	console.log(selectedData.length);	
+	console.log(selectedData);
+	console.log("D3 : " ,d3);
+	console.log("parcoords : " ,d3.parcoords);
+	console.log("pc = " ,d3.parcoords.pc());
+	d3.brushUpdated(selectedData);
+	console.log("here");
+}

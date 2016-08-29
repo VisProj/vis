@@ -2,12 +2,12 @@ var RawData =null;
 /*
  * an array containing all the  locaton in the map that were tatgged as "Other"
  * */
-var Location_Other =null;
+var Location_Others =null;
 function setOthers(Others)
 {
-	Location_Other = Others;
-	console.log();
-	console.log(Location_Other);
+	Location_Others = Others;
+	console.log("all otherr locations ");
+	console.log(JSON.stringify(Location_Others));
 }
 
 
@@ -29,7 +29,6 @@ function GetSelectedDataFromParrallel (Selected_data)
 	/* Get all the quakes */
 	
 			var data = RawData;
-	    	console.log("Entered");
 	    
 	    	var selected_result = new Array(); /* contains the selected dotes from the raw data  */
 	    	var selected_features = new Array();
@@ -40,18 +39,28 @@ function GetSelectedDataFromParrallel (Selected_data)
 	    	var Locations_arr = [];
 	    	var allLocations="";
 	    	var index = 0; 
-	    	/* first get all locations for the data  */
+	    	/* first get all locations from the selected data  */
 	    	
 	    	for(i=0;i<SD_length;i++)
 	    	{
 	    		Location = Selected_data[i].Location;
 
-		    	
 	    		if(allLocations.indexOf(Location)== -1)
 	    		{
-	    			Locations_arr[Location]= index;
-	    			index ++;
-	    			allLocations=allLocations + ","+Location;
+	    			if(Location == "Others")
+    				{
+	    				for(var j=0;j<Location_Others.length; j++)
+    					{
+	    					Locations_arr[Location_Others[i].Location]= index;
+	    					index++;
+    					}
+    				}
+	    			else
+	    			{	
+		    			Locations_arr[Location]= index;
+		    			index ++;
+		    			allLocations=allLocations + ","+Location;
+	    			}
 	    		}
 	    	}
 	    	
@@ -59,7 +68,6 @@ function GetSelectedDataFromParrallel (Selected_data)
 			var temp;
 			var geo_point;
 			
-			console.log("length : " , l);
 			var coordinants ;
 			for(i=0;i<l;i++)
 			{
@@ -73,6 +81,7 @@ function GetSelectedDataFromParrallel (Selected_data)
 					selected_features.push({"properties":{"mag":temp.mag,"sig":temp.sig,"place":temp.place},"geometry":{"coordinates":coordinants}});
 				
 				}
+		
 			}
 		
 			selected_result ={"features":selected_features};
@@ -92,3 +101,11 @@ function GetLocation1(Location)
 		return "Others";
 	return temp[temp.length-1];
 }
+
+function  updateParallelVisData(heatData)
+{
+
+	UpdateHeatMapData(heatData);
+
+}
+

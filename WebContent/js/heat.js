@@ -240,6 +240,8 @@ function turnselectorON(){
    		
    		console.log("MAX_MAG ="+MAX_MAG);
    		document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+   		
+   		updateParallelVisData(DataArray);
 		   }
        });
 	  
@@ -858,4 +860,3 @@ window.onLoad =init();
  * ################################### samer code											            ###################
  * ############################################################################################################################
  */
-

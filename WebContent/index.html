@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <!-- meta http-equiv="refresh" content="1"> no-cache-->
-  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
   
  <script src="lib/d3.min.js"></script>
 <script src="lib/d3.svg.multibrush.js"></script>
@@ -27,153 +25,33 @@
        
     
     <style type="text/css">
-    #lgrad{
-    background: linear-gradient(to right,#377eb8,#4daf4a, #e41a1c);
-   min-width: 200px;    }
-    #hlgrad{
-    background: linear-gradient(to right,  blue, cyan, green, yellow, red);
-   min-width: 200px;    }
-      
-   
       html, body { margin: 0; padding: 0; height: 100%; }
       #quake { min-height: 100%; 
       }
-       #map {height:80%;
- postion : relative;
+#map {    
+   height:80%;
+	postion : relative;
     clear: both;
-
 }
        
-        body { font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
-        .ghbtns { position: relative; top: 4px; margin-left: 5px; }
-        a { color: #0077ff; }
+  body { font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
+  .ghbtns { position: relative; top: 4px; margin-left: 5px; }
+  
+a {
+ 	color: #0077ff;
+  }
+       
         
         
-        
-       .action-list li{
-        font-size: 14px;
-        
-
+.action-list li
+{
+ 	font-size: 14px;     
 }
 
  #OFF{
 display:none ;
 }
 </style>
- <!-- 
- nav {
-margin-top: 14px;
-}
- nav .nav-section{
-    margin-right: 3%;
-    margin-left: 3%;
-    min-width: 200px;
-    float: left; 
-    border-radius:
-}
-.nav-section{
-position: relative;
-}
- nav .nav-section:first-child {
-      margin-left: 0; }
-     nav .nav-section:last-child {
-      margin-right: 0; }
-      
-      .nav-section,.MAP-list{
-    float: left;
-  text-align: center;
-  margin: 0 1.1%;
-
-} 
-.menu-hint{
-        background-color: #DEDEDE;
-  padding: 5px 5px;
-}
-
-.menu-hint p::after ,.active-links span::after{
-    content: " ";
-    display: inline-block;
-//for triangle border 12 give a square 12px * 12px  and top is black give black triangle  
-    border: 11px solid transparent;
-    border-top: 11px solid black;
-    float: right;
-}
-
-.menu .action-list,.active-links .active-list{
-        width: 100%;
-         position: absolute;
-  z-index: 2;
-  /*  visibility: hidden;*/
-   display:none;
-}
-
-.menu .action-list li,.active-links .active-list li{
-    width: 100%;
-        display: block;
-margin-left: -42px;
-background-color: white;
-
-margin-top:0;
-}
-.menu a,.active-list li a {
-    color: black;
-    width: 100%;
-}
-.menu .action-list li a,.active-links .active-list li a {
-
-      display: inline-block;
-     
-      border-bottom: 2px solid #A0A0A0;
-      opacity: 0.7;
-     }
-     /**************action list to remove margin li****/
-    
-.menu{
-    width: 100%;
-}
-
-
-     /*********************************************************************88
-     ************************ hover ********************************************
-     *************************************************************************/
- .menu-hint:hover{
-    background-color:#C0C0C0 ;
-    opacity: 0.9;
-
-}
-.menu:hover .menu-hint:hover p::after {
-  transform: rotate(180deg) translateY(50%);
-  transition:0.7s all;
-   }
-     .menu:hover .action-list ,.active-links:hover .active-list{
-
-    display: block;
-}
-
-
-.menu .action-list li{
-    width: 100%;
-        display: block;
-margin-left: -42px;
-background-color: white;
-
-margin-top:0;
-}
-.menu a,.action-list li a {
-    color: black;
-    width: 100%;
-}
-.menu .action-list li a,.active-links .active-list li a {
-
-      display: inline-block;
-     
-      border-bottom: 2px solid #A0A0A0;
-      opacity: 0.7;
-     }
- 
- 
- -->
-    
 
 <style type="text/css">
 
@@ -231,7 +109,42 @@ ul
 	margin-left: 39px;
 }
 
+.parrallelSectionOpen {
+    height: 300px;
+    -webkit-transition: height 2s; /* For Safari 3.1 to 6.0 */
+    transition: height 1s;
+}
+.parrallelSectionClose {
+ 
+    height: 10px;
+    -webkit-transition: height 2s; /* For Safari 3.1 to 6.0 */
+    transition: height 2s;
+}
+#parrallelSection
+{
+	overflow:hidden;
+	width:100%;
+	margin-left:50px;
+}
+#paralleldiv
+{
+	width:100%;
+	min-height:300px;
+	height:100%;
+}
 
+#haetMap-li{
+display : none;
+}
+
+.fullView
+{
+	height:100%;
+	min-height:500px;
+	mid-width:1000px;
+	with:100%;
+	padding-top:100px;
+}
 </style>
 
 
@@ -239,141 +152,202 @@ ul
     
   </head>
   <script src="d3.parcoords.js"></script>
-<link rel="stylesheet" type="text/css" href="d3.parcoords.css">
+  <script src="js/settings.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/general.css">
+  
+  <link rel="stylesheet" type="text/css" href="d3.parcoords.css">
   <body>
-          <nav>
-  
-              <div class="nav-section navDashboard">
-                 <div class="menu" >
-  <div class="menu-hint">
-  		<p>Tools</p> 
-        <div class="arrow"></div>
-  </div>
-  
-  <ul id="mapsList" >                  
-         <li><a href="#" class="tablinks" id="ON" onclick="turnselectorON()">Select area <br><h6><font color="red">(avilabel only for heatmap)</font></h6></a></li>
-         <li><a href="#" class="tablinks FRSTNON" id="OFF" onclick="turnselectorOff()">UnSelect area</a></li>
-         
-                  <li><a href="#" class="tablinks  " id="OFF" onclick="HeatSens(0)">+ heatmap sensitive</a></li>
-                  <li><a href="#" class="tablinks  " id="OFF" onclick="HeatSens(1)">- heatmap sensitive</a></li>
-               
- </ul>
-    </div>
-              
-              
-              
-   <div class="menu" >
-  <div class="menu-hint">
-  		<p>Change map</p> 
-        <div class="arrow"></div>
-  </div>
-  
-  <ul id="mapsList" >                  
-         <li><a href="#" class="tablinks" onclick="tabEvent('Terrain')">Terrain map</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('toner')">toner map</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('OpenStreetMap')"> OpenStreetMap</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('watercolor')">   watercolor</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('outdoors')">   outdoors</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('dark')">   dark</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('light')">   light</a></li>
-         <li><a href="#" class="tablinks" onclick="tabEvent('satellite')">   satellite</a></li>
-		 <li><a href="#" class="tablinks" onclick="tabEvent('streets')">   streets</a></li>
-               
- </ul>
-    </div>
-       
-       
-       
-                        <div class="menu" >
-  <div class="menu-hint">
-  		<p>visualization</p> 
-        <div class="arrow"></div>
-  </div>
-  
-  <ul id="mapsList" >                  
-         <li><a href="#" class="tablinks FRSTNON" id="HON" onclick="HeatMapON()">Heat Map</a></li>
-         <li><a href="#" class="tablinks  " id="CON" onclick="CirclesON()">circles</a></li>
-         <li><a href="#" class="tablinks  " id="HOFF" onclick="HeatMapOFF()">un Heat Map</a></li>
-         <li><a href="#" class="tablinks FRSTNON " id="COFF" onclick="CirclesOFF()">un circles</a></li>
-         
-         
-         
-               
- </ul>
-    </div>
-       
-       
-       
-       
+   		
+ 
+<!--
+  	<nav> 	 <div class="nav-section navDashboard">
+     	<div class="menu" >
+	 		<div class="menu-hint">
+	  			<p>Tools</p> 
+	        <div class="arrow"></div>
+		  	</div>
+  				<ul id="mapsList" >                  
+			        <li><a href="#" class="tablinks" id="ON" onclick="turnselectorON()">Select area <br><h6><font color="red">(avilabel only for heatmap)</font></h6></a></li>
+			        <li><a href="#" class="tablinks FRSTNON" id="OFF" onclick="turnselectorOff()">UnSelect area</a></li>    
+	                <li><a href="#" class="tablinks  " id="OFF" onclick="HeatSens(0)">+ heatmap sensitive</a></li>
+	                <li><a href="#" class="tablinks  " id="OFF" onclick="HeatSens(1)">- heatmap sensitive</a></li>
+   			 	</ul>
+    	</div>        
+	    <div class="menu" >
+			  <div class="menu-hint">
+			  		<p>Change map</p> 
+			        <div class="arrow"></div>
+			  </div>
+			  <ul id="mapsList" >                  
+			         <li><a href="#" class="tablinks" onclick="tabEvent('Terrain')">Terrain map</a></li>
+			         <li><a href="#" class="tablinks" onclick="tabEvent('toner')">toner map</a></li>
+			         <li><a href="#" class="tablinks" onclick="tabEvent('OpenStreetMap')"> OpenStreetMap</a></li>
+			         <li><a href="#" class="tablinks" onclick="tabEvent('watercolor')">   watercolor</a></li>
+			         <li><a href="#" class="tablinks" onclick="tabEvent('outdoors')">   outdoors</a></li>
+			         <li><a href="#" class="tablinks" onclick="tabEvent('dark')">   dark</a></li>
+			         <li><a href="#" class="tablinks" onclick="tabEvent('light')">   light</a></li>
+			         <li><a href="#" class="tablinks" onclick="tabEvent('satellite')">   satellite</a></li>
+					 <li><a href="#" class="tablinks" onclick="tabEvent('streets')">   streets</a></li>          
+			 </ul>
+	    </div>
        
        <div class="menu" >
-       <a href="#" class="tablinks" onclick="update()">
-         <div class="menu-hint">
-  		<p>UPDATE the data</p> 
-        <div class="arrow"></div>
-  </div></a>
+		  <div class="menu-hint">
+		  		<p>visualization</p> 
+		        <div class="arrow"></div>
+		  </div>
+		  
+		  <ul id="mapsList" >                  
+		         <li><a href="#" class="tablinks FRSTNON" id="HON" onclick="HeatMapON()">Heat Map</a></li>
+		         <li><a href="#" class="tablinks  " id="CON" onclick="CirclesON()">circles</a></li>
+		         <li><a href="#" class="tablinks  " id="HOFF" onclick="HeatMapOFF()">un Heat Map</a></li>
+		         <li><a href="#" class="tablinks FRSTNON " id="COFF" onclick="CirclesOFF()">un circles</a></li>        
+	 		</ul>
+   		 </div>
+       <div class="menu" >
+	       <a href="#" class="tablinks" onclick="update()">
+	         <div class="menu-hint">
+	  			<p>UPDATE the data</p> 
+	       		<div class="arrow"></div>
+	 		 </div></a>
+   		</div>
+   
     </div>
     
-    
-                      </div>
-                    </nav>
-  <div id="map" ></div>
+
   <table>
-  <tr>
-  <td>max mag </td>
-  <td id="magtd"></td>
-  <td id="lgradb">&nbsp;&nbsp;&nbsp;&nbsp;low sig</td>
-  <td id="lgrad"></td>
-    <td id="lgrada">high sig</td>
-     <td id="hlgradb">&nbsp;&nbsp;&nbsp;&nbsp;low  </td>
-  <td id="hlgrad"></td>
-    <td id="hlgrada">high  </td>
-  
-  </tr>
+	  <tr>
+	  		<td>max mag </td>
+	  		<td id="magtd"></td>
+	  </tr>
   </table>
-  
-  
-  
-  <div id="example" class="parcoords" style="width:100%;height:500px;min-width:1300px;"></div>
+	
+</nav>
+ -->
 
-<p>Loads an external <a href="data/cars.csv">csv file</a>, creates a custom <a href="https://github.com/mbostock/d3/wiki/Quantitative-Scales#wiki-quantitative">quantitative color scale</a> using <a href="http://bl.ocks.org/3014589">L*a*b interpolation</a>, and enables brushing.
 
-<p>
-  <label for="sltBrushMode">Brush mode:</label>
-  <select id="sltBrushMode">
-  </select>
-  <label id="lblPredicate" for="sltPredicate">Predicate:</label>
-  <select id="sltPredicate">
-    <option>AND</option>
-    <option>OR</option>
-  </select>
-  <button id="btnReset">Reset Brushes</button>
-</p>
 
-<p id="pStrums" style="visibility: hidden;">Strumming is a 2D selection brushing method, also called pinches by Alfred Inselberg.
-You start a strum be clicking and dragging within one of the segments (area between two axes).
-After releasing the mouse button, the selection will contain all lines that pass through all of the active strums.
+<ul>
+  <li><a class="active" href="javascript:void(0)">Tools</a></li>
+  <li><a href="javascript:void(0)">visualization</a></li>
+  
+  <li class="dropdown">
+    <a href="#" class="dropbtn">Maps</a>
+    <div class="dropdown-content1">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+    </div>
+  </li>
+  <li id="haetMap-li"><a href="javascript:void(0)" onclick="fullView(1)"> return to heatmap </a></li>
+  <li id="parallel-li"><a href="javascript:void(0)" onclick="fullView(2)" > parallerl diagram </a></li>
+  <li><a href="javascript:void(0)" onclick="resizeWindow()"> split </a></li>
+  
+</ul>
 
-<script src="Connectors.js" type="text/javascript"></script>
-<script src="Brushingscript.js" type="text/javascript"></script>
 
+
+  <div id="map" ></div>	
   
   
+  <table>
+	  <tr>
+		  <td>max mag </td>
+		  <td id="magtd"></td>
+		  <td id="lgradb">&nbsp;&nbsp;&nbsp;&nbsp;low sig</td>
+		  <td id="lgrad"></td>
+		  <td id="lgrada">high sig</td>
+		  <td id="hlgradb">&nbsp;&nbsp;&nbsp;&nbsp;low  </td>
+		  <td id="hlgrad"></td>
+		  <td id="hlgrada">high  </td>
+	  </tr>
+ </table>
   
   
-  
-  
-  
-   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
-    <script src="./js/leaflet-areaselect.js"></script>
-  
-  
-  <script src="dist/leaflet-heat.js"></script>
-  
-       <script type="text/javascript" src="js/heat.js"></script>
+	 <div id="parrallelSection"  class="parrallelSectionClose" > 
+		 <div id="paralleldiv" class="parcoords"  ></div>
+		
+		<p>
+		  <label for="sltBrushMode">Brush mode:</label>
+		  <select id="sltBrushMode"></select>
+		  
+		  <label id="lblPredicate" for="sltPredicate">Predicate:</label>
+		  <select id="sltPredicate">
+		    <option>AND</option>
+		    <option>OR</option>
+		  </select>
+		  <button id="btnReset">Reset Brushes</button>
+		</p>
+	
+	</div>
+	
+	
+	<script src="Connectors.js" type="text/javascript"></script>
+	<script src="Brushingscript.js" type="text/javascript"></script> 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+	<script src="./js/leaflet-areaselect.js"></script>	 
+	<script src="dist/leaflet-heat.js"></script>
+	<script type="text/javascript" src="js/heat.js"></script>
        
-     <script type="text/javascript">
+       
+       <script  type="text/javascript">
+       var clicked = false;
+       document.getElementById("paralleldiv").style.display = "none";
+       function resizeWindow()
+       {
+		      	
+	      	if(clicked)
+      		{
+	            document.getElementById("parrallelSection").className  = "parrallelSectionClose";
+	            document.getElementById("paralleldiv").style.display = "none";
+	            document.getElementById("map").style.height = "100%";
+
+	            clicked= false;
+      		}
+    	  	else
+      		{
+	            document.getElementById("parrallelSection").className  = "parrallelSectionOpen";
+	            document.getElementById("paralleldiv").style.display = "block";
+	            document.getElementById("map").style.height = "50%";	          
+	           	clicked= true;
+      		}
+		      
+       }
+       
+       function fullView(value)
+       {
+    	   
+    	   if(value ==1 )
+    		{ //heatmap full view
+    		   document.getElementById("haetMap-li").style.display = "none";
+    		   document.getElementById("parallel-li").style.display = "block";
+    		   
+    		   document.getElementById("map").style.display ="block";
+        	   document.getElementById("paralleldiv").style.display = "none";
+        	   document.getElementById("paralleldiv").style.height= "300px";
+        	   // document.getElementById("map").className  = "fullView";
+        	    document.getElementById("map").style.height = "100%";
+        	  
+    		}
+    	   else
+   		   { //parallel visualization full view
+    		   document.getElementById("haetMap-li").style.display = "block";
+    		   document.getElementById("parallel-li").style.display = "none";   	
+    		   
+    		   document.getElementById("map").style.display ="none";
+        	   document.getElementById("paralleldiv").style.display = "block";
+        	   document.getElementById("parrallelSection").className= "fullView";
+        	   
+        	   document.getElementById("#paralleldiv").style.height= "600px";
+   		   }
+    	 
+       }
+       
+
+       </script>
+       
+            <script type="text/javascript">
 $(document).ready(function(){
 
 //Check if the current URL contains '#' 
@@ -388,8 +362,6 @@ location.reload(true);
 
 }
 });
-</script> 
- 
-    
+</script>
   </body>
 </html>
