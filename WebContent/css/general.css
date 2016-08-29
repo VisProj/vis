@@ -4,12 +4,12 @@ ul {
     padding: 0;
     overflow: hidden;
     background-color: #333;
-    
+    z-index:1;
 }
 
 li {
     float: left;
-    max-height:50px;
+z-index:1;
 }
 
 li a, .dropbtn {
@@ -18,25 +18,30 @@ li a, .dropbtn {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    z-index:1;
 }
 
-li a:hover, .dropdown:hover .dropbtn {
+li a:hover, .dropdown1:hover .dropbtn {
     background-color: red;
+    z-index:1;
 }
 
-li.dropdown {
+li.dropdown1 {
+	z-index:1;
     display: inline-block;
 }
 
 .dropdown-content1 {
+	z-index:1;
     display: none;
-
+	position:absolute !important;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
 .dropdown-content1 a {
+	z-index:1;
     color: black;
     padding: 12px 16px;
     text-decoration: none;
@@ -46,8 +51,9 @@ li.dropdown {
 
 .dropdown-content1 a:hover {background-color: #f1f1f1}
 
-.dropdown:hover .dropdown-content1 {
-    display: block;
+.dropdown1:hover .dropdown-content1 {
+  z-index:1;
+    display: block !important;
 }
 
 

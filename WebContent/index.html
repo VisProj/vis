@@ -19,18 +19,25 @@
   
       <link rel="stylesheet" href="./css/leaflet-areaselect.css" />
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-                  <script type="text/javascript" src="test/test1.js " data-main="test/test2.js"></script>
 
-               <script type="text/javascript" src="test/test2.js" data-main="test/test1.js"></script>
        
     
     <style type="text/css">
+    
+     #lgrad{
+    background: linear-gradient(to right,#377eb8,#4daf4a, #e41a1c);
+   min-width: 200px;    }
+    #hlgrad{
+    background: linear-gradient(to right,  blue, cyan, green, yellow, red);
+   min-width: 200px;    }
+      
       html, body { margin: 0; padding: 0; height: 100%; }
       #quake { min-height: 100%; 
       }
 #map {    
    height:80%;
-	postion : relative;
+   	postion : relative;
+   	
     clear: both;
 }
        
@@ -159,7 +166,7 @@ display : none;
   <body>
    		
  
-<!--
+<!-- 
   	<nav> 	 <div class="nav-section navDashboard">
      	<div class="menu" >
 	 		<div class="menu-hint">
@@ -198,10 +205,7 @@ display : none;
 		  </div>
 		  
 		  <ul id="mapsList" >                  
-		         <li><a href="#" class="tablinks FRSTNON" id="HON" onclick="HeatMapON()">Heat Map</a></li>
-		         <li><a href="#" class="tablinks  " id="CON" onclick="CirclesON()">circles</a></li>
-		         <li><a href="#" class="tablinks  " id="HOFF" onclick="HeatMapOFF()">un Heat Map</a></li>
-		         <li><a href="#" class="tablinks FRSTNON " id="COFF" onclick="CirclesOFF()">un circles</a></li>        
+		             
 	 		</ul>
    		 </div>
        <div class="menu" >
@@ -223,32 +227,50 @@ display : none;
   </table>
 	
 </nav>
+ 
  -->
 
-
-
 <ul>
-  <li><a class="active" href="javascript:void(0)">Tools</a></li>
-  <li><a href="javascript:void(0)">visualization</a></li>
-  
-  <li class="dropdown">
-    <a href="#" class="dropbtn">Maps</a>
+  <li class="dropdown1">
+    <a href="#" c>Maps</a>
     <div class="dropdown-content1">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
+             		 <a href="#" class="tablinks" onclick="tabEvent('Terrain')">Terrain map</a>
+			         <a href="#" class="tablinks" onclick="tabEvent('toner')">toner map</a>
+			         <a href="#" class="tablinks" onclick="tabEvent('OpenStreetMap')"> OpenStreetMap</a>
+			         <a href="#" class="tablinks" onclick="tabEvent('watercolor')">   watercolor</a>
+			         <a href="#" class="tablinks" onclick="tabEvent('outdoors')">   outdoors</a>
+			         <a href="#" class="tablinks" onclick="tabEvent('dark')">   dark</a>
+			         <a href="#" class="tablinks" onclick="tabEvent('light')">   light</a>
+			         <a href="#" class="tablinks" onclick="tabEvent('satellite')">   satellite</a>
+					 <a href="#" class="tablinks" onclick="tabEvent('streets')">   streets</a>   
     </div>
   </li>
+  <li class="dropdown1"><a class="dropbtn" href="javascript:void(0)">Tools</a>
+	    <div class="dropdown-content1">
+			<a href="#" class="tablinks" id="ON" onclick="turnselectorON()">Select area <br><h6><font color="red">(avilabel only for heatmap)</font></h6></a>
+	        <a href="#" class="tablinks FRSTNON" id="OFF" onclick="turnselectorOff()">UnSelect area</a>    
+            <a href="#" class="tablinks  " id="OFF" onclick="HeatSens(0)">+ heatmap sensitive</a>
+            <a href="#" class="tablinks  " id="OFF" onclick="HeatSens(1)">- heatmap sensitive</a>
+	    </div>
+    </li>  
+	                
+  <li class="dropdown1" ><a class="dropbtn" href="javascript:void(0)">visualization</a>
+	  <div class="dropdown-content1">
+		 <a href="#" class="tablinks FRSTNON" id="HON" onclick="HeatMapON()">Heat Map</a>
+         <a href="#" class="tablinks  " id="CON" onclick="CirclesON()">circles</a>
+         <a href="#" class="tablinks  " id="HOFF" onclick="HeatMapOFF()">un Heat Map</a>
+         <a href="#" class="tablinks FRSTNON " id="COFF" onclick="CirclesOFF()">un circles</a>   
+	  </div>
+     </li>
+  
   <li id="haetMap-li"><a href="javascript:void(0)" onclick="fullView(1)"> return to heatmap </a></li>
   <li id="parallel-li"><a href="javascript:void(0)" onclick="fullView(2)" > parallerl diagram </a></li>
   <li><a href="javascript:void(0)" onclick="resizeWindow()"> split </a></li>
-  
+
 </ul>
-
-
+ 
 
   <div id="map" ></div>	
-  
   
   <table>
 	  <tr>
@@ -327,7 +349,7 @@ display : none;
         	   document.getElementById("paralleldiv").style.display = "none";
         	   document.getElementById("paralleldiv").style.height= "300px";
         	   // document.getElementById("map").className  = "fullView";
-        	    document.getElementById("map").style.height = "100%";
+        	    document.getElementById("map").style.height = "80%";
         	  
     		}
     	   else
@@ -339,7 +361,7 @@ display : none;
         	   document.getElementById("paralleldiv").style.display = "block";
         	   document.getElementById("parrallelSection").className= "fullView";
         	   
-        	   document.getElementById("#paralleldiv").style.height= "600px";
+        	   document.getElementById("paralleldiv").style.height= "600px";
    		   }
     	 
        }
@@ -362,6 +384,11 @@ location.reload(true);
 
 }
 });
+</script>
+
+
+<script type="text/javascript">
+Connectorsinit();
 </script>
   </body>
 </html>

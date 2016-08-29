@@ -40,7 +40,8 @@ function UpdateHeatMapData(HMData)
 {
 	
 	d3.select("svg").remove();
-    var res = datamining(data.HMData);
+	console.log("update map",HMData);
+    var res = HMData;
 	parcoords
     .data(res)
     .color(color)
@@ -113,7 +114,7 @@ function datamining(data)
 {
 	// data is a json object (array of arrays )
 	var i;
-	var data_length = data.length ; 
+	var data_length = data.length; 
 	var data_result = new Array();
 	var Location ; 
 	var info_accuracy;
