@@ -781,8 +781,9 @@ function init(){
 	style_init();
 	lastclick=0;
 	MAX_MAG=0;
-	Data("jasonData",1);
 	BuildRegionArr();
+
+	Data("jasonData",1);
 
 	DataArray2=DataArray;
 	initMap();
