@@ -23,6 +23,7 @@ var lat_unit;
 var lon_unit;
 var bounds ;
 var data2;
+spliton=0;
 var container;
 var currentmap;
 var heatVis=1;
@@ -60,6 +61,7 @@ var removedarea;
  * 
  */
 function splitheat(){
+	spliton=1;
 	var x= document.getElementsByClassName("leaflet-areaselect-handle");
 	 var i;
 	 for (i = 0; i < x.length; i++) {
@@ -75,6 +77,7 @@ function splitheat(){
 
 }
 function unsplitheat(){
+	spliton=0;
 	document.getElementById("splitneed").style.display='none';
 	if(on_select>1)
 		document.getElementById("OFF").style.display='block';
@@ -486,6 +489,12 @@ function HeatSens(x){
 	document.getElementById("lgradb").style.display='none';
 	document.getElementById("lgrad").style.display='none';
 	document.getElementById("lgrada").style.display='none';
+	if(spliton){
+		document.getElementById("OFF").style.display='none';
+		document.getElementById("ON").style.display='none';
+
+	}
+
 	
 }
 function HeatMapOFF(){
