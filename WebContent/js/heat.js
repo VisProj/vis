@@ -61,6 +61,7 @@ var removedarea;
  * 
  */
 function splitheat(){
+	
 	spliton=1;
 	var x= document.getElementsByClassName("leaflet-areaselect-handle");
 	 var i;
@@ -79,7 +80,7 @@ function splitheat(){
 function unsplitheat(){
 	spliton=0;
 	document.getElementById("splitneed").style.display='none';
-	if(on_select>1)
+	if((on_select>1)&&(!circVis))
 		document.getElementById("OFF").style.display='block';
 	else
 		document.getElementById("ON").style.display='block';
@@ -603,6 +604,7 @@ on_select=0;
 	 heatVis=0;
 	if(!circVis){
 		circVis=1;
+		if(spliton===0)
 		document.getElementById("ON").style.display='block';
 		document.getElementById("OFF").style.display='none';
 	document.getElementById("CON").style.display='none';

@@ -269,7 +269,7 @@ display : none;
   
   <li id="haetMap-li"><a href="javascript:void(0)" onclick="fullView(1)"> return to heatmap </a></li>
   <li id="parallel-li"><a href="javascript:void(0)" onclick="fullView(2)" > parallerl diagram </a></li>
-  <li><a href="javascript:void(0)" onclick="resizeWindow()"> split </a></li>
+  <li id="splitthesplit"><a href="javascript:void(0)" onclick="resizeWindow()"> split </a></li>
 
 </ul>
  
@@ -356,13 +356,15 @@ display : none;
         	   document.getElementById("paralleldiv").style.height= "300px";
         	   // document.getElementById("map").className  = "fullView";
         	    document.getElementById("map").style.height = "80%";
-        	  
+     		   document.getElementById("splitthesplit").style.display = "block";   	
+
     		}
     	   else
    		   { //parallel visualization full view
     		   document.getElementById("haetMap-li").style.display = "block";
     		   document.getElementById("parallel-li").style.display = "none";   	
-    		   
+    		   document.getElementById("splitthesplit").style.display = "none";   	
+
     		   document.getElementById("map").style.display ="none";
         	   document.getElementById("paralleldiv").style.display = "block";
         	   document.getElementById("parrallelSection").className= "fullView";
@@ -387,6 +389,8 @@ $(document).ready(function(){
 //Check if the current URL contains '#' 
 if(document.URL.indexOf("#")==-1)
 {
+	alert("if its your first time it will take about minute\n\n if after minute u still cant show the map refresh the page \n\n\n\n else you can enter from this link without wating\n https://visproj.github.io/vis/WebContent/index.html#1");
+ 
 	// Set the URL to whatever it was plus "#".
 	url = document.URL+"#";
 	location = "#";
