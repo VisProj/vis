@@ -48,6 +48,7 @@ var AllMaxMag;
 var max_normto=1900;// a define var that contine the the value of the strongest earthquake
 var on_select=0;
 
+var removedarea;
 
 
 
@@ -58,7 +59,30 @@ var on_select=0;
  * ####################################################################################################################
  * 
  */
+function splitheat(){
+	var x= document.getElementsByClassName("leaflet-areaselect-handle");
+	 var i;
+	 for (i = 0; i < x.length; i++) {
+	     x[i].style.display='none' ;
+	 }
+	 x= document.getElementsByClassName("leaflet-areaselect-shade");
+	 for (i = 0; i < x.length; i++) {
+	     x[i].style.display='none' ;
+	 }
+	 
+}
+function unsplitheat(){
+	var x= document.getElementsByClassName("leaflet-areaselect-handle");
+	 var i;
+	 for (i = 0; i < x.length; i++) {
+	     x[i].style.display='block' ;
+	 }
+	 x= document.getElementsByClassName("leaflet-areaselect-shade");
+	 for (i = 0; i < x.length; i++) {
+	     x[i].style.display='block' ;
+	 }
 
+ }
 function selectorChange(Limits){
 
 	var iTO=Math.ceil((Limits.N-limits.S)/lat_unit);
@@ -227,7 +251,7 @@ function turnselectorON(){
 	document.getElementById("lgrada").style.display='none';
 	ONchangeOFF=1;
 	if(on_select<1){
-	 areaSelect = L.areaSelect({width:200, height:300});
+	 areaSelect = L.areaSelect({width:100, height:100});
 	
 	   areaSelect.on("change", function() {
 		   if(ONchangeOFF && heatVis){

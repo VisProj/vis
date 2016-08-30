@@ -1,4 +1,8 @@
 
+
+var Other_locations = new Array() ; // an array that contains all the locations that were classified as others
+
+
 function GetJsonData()
 {
 var jsdata;
@@ -8,7 +12,7 @@ $.ajax({
       //  dataType : 'obj',
     
         error : function() {
-            alert("Error Occured while quering the data");
+            //alert("Error Occured while quering the data");
         },
         success : function(data) {
        
@@ -23,38 +27,21 @@ $.ajax({
             .shadows()
             .reorderable()
             .brushMode("1D-axes");  // enable brushing
-        	
+        
+        	console.log("testing ");
+    
+        	console.log("testing end ");
         }
     });
 
 }
 
-
-// quantitative color scale
-var blue_to_brown = d3.scale.linear()
-  .domain([1, 50])
-  .range(["red", "green"])
-  .interpolate(d3.interpolateLab);
-
-var color = function(d) { return blue_to_brown(d['economy (mpg)']); };
-
-var parcoords = d3.parcoords()("#example")
-    .color(color)
-    .alpha(0.4);
-
-var x = d3.scale.log()
-.domain([.0124123, 1230.4])
-.range([0, 900]);
-
-// load csv file and create the chart
-/*d3.csv('data/all_month.csv', function(data) {
+function UpdateHeatMapData(HMData)
+{
 	
-	var dt =GetJsonData();
-	console.log("batmans");
-	console.log(dt);
-	
-	var res = dt;//datamining(dt);
-
+	d3.select("svg").remove();
+	console.log("update map",HMData);
+    var res = HMData;
 	parcoords
     .data(res)
     .color(color)
@@ -65,9 +52,25 @@ var x = d3.scale.log()
     .shadows()
     .reorderable()
     .brushMode("1D-axes");  // enable brushing
-	
-});
-*/
+}
+
+
+
+// quantitative color scale
+var blue_to_brown = d3.scale.linear()
+  .domain([1, 50])
+  .range(["red", "green"])
+  .interpolate(d3.interpolateLab);
+
+var color = function(d) { return blue_to_brown(d['economy (mpg)']); };
+
+var parcoords = d3.parcoords()("#paralleldiv")
+    .alpha(0.4);
+
+var x = d3.scale.log()
+.domain([.0124123, 1230.4])
+.range([0, 900]);
+
 var sltBrushMode = d3.select('#sltBrushMode')
 
 sltBrushMode.selectAll('option')
@@ -111,7 +114,7 @@ function datamining(data)
 {
 	// data is a json object (array of arrays )
 	var i;
-	var data_length = data.length ; 
+	var data_length = data.length; 
 	var data_result = new Array();
 	var Location ; 
 	var info_accuracy;
@@ -210,14 +213,21 @@ function MergeEarthQuakesDataByLocation(data)
 		//	result[0].Accuracy = result[0].Accuracy + result[i].Accuracy;
 			result[0].sig = result[0].sig + result[i].sig;
 			result[0].HighAlerts = result[0].HighAlerts + result[i].HighAlerts;
+	
+			//add the location to Others locaation list 
+			Other_locations.push("Location",result[i].Location);
+			
 			//remove the query from results .
 			result.splice(i,1);
 			i=i-1;
 			dyn_length=dyn_length-1;
+	
 			
 		}
 	}
 	
+	// Set Otther locations variable in connectors.js 
+	setOthers(Other_locations);
 	
 	//merge two Earthquakes with the same location 
 	console.log("data length  "+ result.length);
@@ -235,9 +245,6 @@ function MergeEarthQuakesDataByLocation(data)
 	for(i=0;i<results_length;i++)
 	{
 		norm =result[i].number;
-		/**
-		 * join Elements that have 50 or less earthquakes , into a variable called others 
-		 */
 		
 		result[i].mag = result[i].mag/norm; 
 		//if(isNaN(result[i].mag)) alert("gere");
@@ -325,3 +332,9 @@ function GetLocation(Location)
 
 
 init();
+
+
+
+
+
+
