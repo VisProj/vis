@@ -373,6 +373,12 @@ display : none;
 
        </script>
        
+
+
+<script type="text/javascript">
+Connectorsinit();
+</script>
+
             <script type="text/javascript">
 $(document).ready(function(){
 
@@ -385,6 +391,18 @@ if(document.URL.indexOf("#")==-1)
 
 	location.reload(true);
 	
+ 
+
+
+}else{
+
+if(document.URL.indexOf("#1")==-1)
+{
+	// Set the URL to whatever it was plus "#".
+	url = document.URL+"#1";
+	location = "#1";
+
+  	
 //Reload the page
 setTimeout(function(){
 
@@ -395,13 +413,8 @@ setTimeout(function(){
  
 
 
-}
+}}
 });
-</script>
-
-
-<script type="text/javascript">
-Connectorsinit();
 </script>
   </body>
 </html>

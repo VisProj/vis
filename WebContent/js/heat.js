@@ -394,10 +394,10 @@ xhr.send(null);
 xhr.onreadystatechange = function () {//nisted function
 if (xhr.readyState === 4) {
 if (xhr.status === 200 ) {
-data = JSON.parse(xhr.responseText);
+ data = JSON.parse(xhr.responseText);
 localStorage.setItem(key, JSON.stringify(data));
-
-
+//data=localStorage.getItem(key);
+//data = JSON.stringify(localStorage.getItem(key));
 } else {
 //console.log(xhr.responseText);
 //console.log(xhr.readyState);
@@ -405,12 +405,14 @@ localStorage.setItem(key, JSON.stringify(data));
 
 }
 }
-//console.log(data);
+console.log(data);
 
-size=data.length();
+//size=data.length();
 }
 }
 }
+console.log(data);
+
 //update();
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -779,8 +781,9 @@ function init(){
 	style_init();
 	lastclick=0;
 	MAX_MAG=0;
-	BuildRegionArr();
 	Data("jasonData",1);
+	BuildRegionArr();
+
 	DataArray2=DataArray;
 	initMap();
 	draw();
