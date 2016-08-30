@@ -69,9 +69,19 @@ function splitheat(){
 	 for (i = 0; i < x.length; i++) {
 	     x[i].style.display='none' ;
 	 }
-	 
+		document.getElementById("OFF").style.display='none';
+		document.getElementById("ON").style.display='none';
+		document.getElementById("splitneed").style.display='block';
+
 }
 function unsplitheat(){
+	document.getElementById("splitneed").style.display='none';
+	if(on_select>1)
+		document.getElementById("OFF").style.display='block';
+	else
+		document.getElementById("ON").style.display='block';
+
+
 	var x= document.getElementsByClassName("leaflet-areaselect-handle");
 	 var i;
 	 for (i = 0; i < x.length; i++) {
