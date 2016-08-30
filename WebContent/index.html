@@ -375,16 +375,19 @@ display : none;
        
             <script type="text/javascript">
 $(document).ready(function(){
+	// Set the URL to whatever it was plus "#".
+	url = document.URL+"#";
+	location = "#";
 
+	location.reload(true);
+	
 //Check if the current URL contains '#' 
 if(document.URL.indexOf("#")==-1)
 {
 //Reload the page
 setTimeout(function(){
 
-	// Set the URL to whatever it was plus "#".
-	url = document.URL+"#";
-	location = "#";
+	 
 
 	location.reload(true);
 	}, 3000);
