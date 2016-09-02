@@ -232,6 +232,9 @@ function turnselectorOff(){
 	draw_allMap();
 	on_select=0;
 		document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+		document.getElementById("NoOfEarthquake").innerHTML=" : "+	DataArray.length;
+
+		 
 
 }
 
@@ -278,6 +281,8 @@ function turnselectorON(){
    		
    		console.log("MAX_MAG ="+MAX_MAG);
    		document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+		document.getElementById("NoOfEarthquake").innerHTML=" : "+	DataArray.length;
+
 		   }
        });
 	  
@@ -518,6 +523,8 @@ function HeatMapOFF(){
  
  		
 			document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+			document.getElementById("NoOfEarthquake").innerHTML=" : "+	DataArray.length;
+
 
 		
 	
@@ -542,6 +549,7 @@ function HeatMapON(){
 		draw_allMap();
 		on_select=0;
 			document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+			document.getElementById("NoOfEarthquake").innerHTML=" : "+	DataArray.length;
 
 		
 	}
@@ -621,8 +629,8 @@ on_select=0;
 	//draw_allMap();
 	//on_select=0;
 		document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+		document.getElementById("NoOfEarthquake").innerHTML=" : "+	DataArray.length;
 
-	
 	
 	
  	//select the map area and bounds
@@ -795,7 +803,8 @@ function REinitEK(x){
  	draw();
 	AllMaxMag=MAX_MAG;
 	document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
-	
+	document.getElementById("NoOfEarthquake").innerHTML=" : "+	DataArray.length;
+
  
 }
 function init(){
@@ -811,6 +820,8 @@ function init(){
 	draw();
 	AllMaxMag=MAX_MAG;
 	document.getElementById("magtd").innerHTML=" : "+	MAX_MAG;
+	document.getElementById("NoOfEarthquake").innerHTML=" : "+	DataArray.length;
+
 	data2=data;
 	var popup = L.popup();
 

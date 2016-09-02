@@ -270,6 +270,7 @@ display : none;
   <li id="haetMap-li"><a href="javascript:void(0)" onclick="fullView(1)"> return to heatmap </a></li>
   <li id="parallel-li"><a href="javascript:void(0)" onclick="fullView(2)" > parallerl diagram </a></li>
   <li id="splitthesplit"><a href="javascript:void(0)" onclick="resizeWindow()"> split </a></li>
+  <li id="splitthesplit"><a href="#1" onclick="updatejsondata()"> update the data </a></li>
 
 </ul>
  
@@ -278,7 +279,9 @@ display : none;
   
   <table>
 	  <tr>
-		  <td>max mag </td>
+	  <td>Num Of Earthquakes </td>
+		  <td id="NoOfEarthquake"></td>
+		  <td>&nbsp;&nbsp;&nbsp;&nbsp;max mag </td>
 		  <td id="magtd"></td>
 		  <td id="lgradb">&nbsp;&nbsp;&nbsp;&nbsp;low sig</td>
 		  <td id="lgrad"></td>
@@ -421,6 +424,24 @@ setTimeout(function(){
 
 }}
 });
+</script>
+<script type="text/javascript">
+
+function updatejsondata(){
+	update();
+	$(document).ready(function(){
+		setTimeout(function(){
+
+			 
+
+			location.reload(true);
+			}, 11000);
+		
+	});
+	alert("it take about 30sec to update please press ok and wait");
+	
+	
+}
 </script>
   </body>
 </html>
