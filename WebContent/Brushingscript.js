@@ -2,7 +2,7 @@
 var magnFactor = 10;
 var number_of_quakes_thershold =20;
 var Other_locations = new Array() ; // an array that contains all the locations
-var RawData;									// that were classified as others
+var processedData;									// that were classified as others
 
 
 function GetJsonData()
@@ -17,15 +17,15 @@ $.ajax({
             // alert("Error Occured while quering the data");
         },
         success : function(data) {
-        	RawData=data;
-        	Connectorsinit(RawData);
-       var res = datamining(data.features);
-       
+  
+        	Connectorsinit(data);
+        	var res = datamining(data.features);
+        	processedData =res;
+        	
         	parcoords
             .data(res)
             .color(color)
             // .scale(x)
-            .hideAxis(["name"])
             .composite("darker")
             .render()
             .shadows()
@@ -37,28 +37,6 @@ $.ajax({
 }
 
 
-
-
-function UpdateHeatMapData(HMData)
-{
-	
-	d3.select("svg").remove();
- parcoords = d3.parcoords()("#paralleldiv")
-    .alpha(0.4);
- var res = MergeEarthQuakesDataByLocation(HMData);
-	
-	parcoords
-    .data(res)
-    .color(color)
-    .hideAxis(["name"])
-    .composite("darker")
-    .render()
-    .shadows()
-    .reorderable()
-    .brushMode("1D-axes");
-	
-	//setTimeout(resetParalleelDiagram(),6000);
-}
 
 
 
@@ -363,22 +341,51 @@ init();
 
 function resetParalleelDiagram()
 {
-	d3.select("svg").remove();
-	 parcoords = d3.parcoords()("#paralleldiv")
-	    .alpha(0.4);	
-	 
-	 
-	 var res = datamining(RawData.features);
+
       
   	parcoords
-      .data(res)
+      .data(processedData)
       .color(color)
       // .scale(x)
-      .hideAxis(["name"])
       .composite("darker")
       .render()
       .shadows()
       .reorderable()
       .brushMode("1D-axes");  // enable brushing
   	
+}
+
+
+function UpdateHeatMapData(HMData)
+{
+
+	var res = MergeEarthQuakesDataByLocation(HMData);
+	var updatedData = new Array();
+	var len = processedData.length;
+	var res_len = res.length;
+	var i;
+	var j;
+	for(i=0;i<res_len;i++)
+	{
+		for(j=0;j<len;j++)
+		{
+			if(res[i].Location == processedData[j].Location)
+			{
+				updatedData.push(processedData[j]);
+			}
+		}
+	}
+	// should 
+/* tried thte hightlight , but it's ugly and makes the graph unreadable . (good only for highliting 1 path or two
+	parcoords.highligh(updatedData);
+	*/
+		parcoords
+	    .data(updatedData)
+	    .color(color)
+	    .hideAxis(["name"])
+	    .composite("darker")
+	    .render()
+	    .shadows()
+	    .reorderable()
+	    .brushMode("1D-axes");
 }

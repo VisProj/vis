@@ -1,4 +1,4 @@
-var RawData =null;
+var RawData ;
 /*
  * an array containing all the  locaton in the map that were tatgged as "Other"
  * */
@@ -113,8 +113,7 @@ function GetLocation1(Location)
 function  updateParallelVisData(heatData)
 {
 //heatData[i] = (long,lat,depth,mag) 
-	console.log("heatmap data ", heatData[0]);
-	console.log("RawDdata",RawData.features[0]);
+
 	var data=RawData.features;
 	var i,j;
 	var long,lat;
@@ -122,8 +121,7 @@ function  updateParallelVisData(heatData)
 	var heatData_length =heatData.length;
 	var resData = new Array();
 	var Location ,depth;
-	
-	console.log("sdsd" ,data[0]);
+
 	for(i=0;i<heatData_length;i++)
 	{
 		

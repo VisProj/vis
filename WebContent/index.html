@@ -233,6 +233,9 @@ ul {
 			onclick="fullView(2)"> parallel diagram </a></li>
 		<li id="splitthesplit"><a href="javascript:void(0)"
 			onclick="resizeWindow()"> split </a></li>
+				<li id="resetDatali"><a href="#1" onclick="resetData()">
+				reset Data </a></li>
+				
 		<li id="splitthesplit"><a href="#1" onclick="updatejsondata()">
 				update the data </a></li>
 
@@ -265,7 +268,6 @@ ul {
 				<option>OR</option>
 			</select>
 			<button id="btnReset">Reset Brushes</button>
-
 			<label for="sltBrushMode" style="visibility:hidden">Brush mode:</label>
 			 <select id="sltBrushMode"  style="visibility:hidden"></select> 
 		</p>
@@ -378,6 +380,16 @@ ul {
 			});
 			alert("it take about 30sec to update please press ok and wait");
 
+		}
+		
+		
+		function resetData()
+		{
+		
+			REINITE();
+			REinitEK(1);
+			resetParalleelDiagram();
+			
 		}
 	</script>
 </body>
