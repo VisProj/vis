@@ -1258,9 +1258,10 @@ pc.brushMode = function(mode) {
 				 * send the selected Elements to the haetmap
 				 * */
 				var selected_data= selected();
-				console.log("batman");
-				console.log(selected_data);
+//				console.log("batman");
+//				console.log(selected_data);
 
+				// send data to heatmap
 				GetSelectedDataFromParrallel(selected());
 				brushUpdated(selected_data);
 			})
@@ -1813,7 +1814,14 @@ pc.brushMode = function(mode) {
 				}
       })
       .on("brush", function() {
-        brushUpdated(selected());
+
+		var selected_data= selected();
+//		console.log("batman");
+//		console.log(selected_data);
+
+		// send data to heatmap
+		GetSelectedDataFromParrallel(selected());
+		brushUpdated(selected_data);
       })
       .on("brushend", function() {
     	// d3.svg.multibrush clears extents just before calling 'brushend'
